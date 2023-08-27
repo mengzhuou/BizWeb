@@ -1,23 +1,16 @@
 const mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
 
-const infoSchema = new mongoose.Schema(
+//reflect employee's daily sales record
+const noteSchema = new mongoose.Schema(
     {
-        client: {
+        user: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'User'
         },
-        fName: {
+        salesCount: {
             type: String,
-            required: true
-        },
-        lName: {
-            type: String,
-            required: true
-        },
-        dob: {
-            type: Date,
             required: true
         },
         completed: {
@@ -30,10 +23,10 @@ const infoSchema = new mongoose.Schema(
     }
 )
 
-infoSchema.plugin(AutoIncrement, {
-    inc_field: 'user',
-    id: 'userNum',
+noteSchema.plugin(AutoIncrement, {
+    inc_field: 'note',
+    id: 'noteNums',
     start_seq: 500
 })
 
-module.exports = mongoose.model('UserInfo', infoSchema)
+module.exports = mongoose.model('Note', noteSchema)
