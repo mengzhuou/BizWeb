@@ -4,13 +4,16 @@ const Public = () => {
     const content = (
         <section className="public">
             <header>
-                <span className="nowrap">Log In</span>
+                <h1>Welcome to <span className="nowrap">Bizweb</span></h1>
             </header>
-            <body>
-                
-            </body>
-                {/* <Link to="/login">Employee Login</Link> */}
+            <main className="public__main">
+                <p>TBD</p>
+            </main>
+            <footer>
+                <Link to="/login">Employee Login</Link>
+            </footer>
         </section>
+
     )
     return content
 }
