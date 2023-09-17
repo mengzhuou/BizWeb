@@ -10,7 +10,7 @@ const Login = () => {
                 <p>Login function</p>
             </main>
             <footer>
-                <Link to="/public">Welcome</Link>
+                <Link to="/">Welcome</Link>
             </footer>
         </section>
 
