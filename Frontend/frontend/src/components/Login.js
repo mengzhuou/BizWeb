@@ -1,20 +1,19 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const Login = () => {
-    const content = (
-        <section className="public">
-            <header>
-                <h1>Login</h1>
-            </header>
-            <main className="public__main">
-                <p>Login function</p>
-            </main>
-            <footer>
-                <Link to="/">Welcome</Link>
-            </footer>
-        </section>
-
-    )
-    return content
-}
-export default Login
+  const content = (
+    <section className="public">
+      <header>
+        <h1>Login</h1>
+      </header>
+      <main className="public__main">
+        <p>Login function</p>
+      </main>
+      <footer>
+        <Link to="/">Welcome</Link>
+      </footer>
+    </section>
+  );
+  return content;
+};
+export default Login;
