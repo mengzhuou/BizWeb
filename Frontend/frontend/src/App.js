@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import { Layout, Public, Login, Register } from "./components";
+import Layout from "./components/Layout";
+import Public from "./components/Public";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -7,7 +9,6 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
       </Route>
     </Routes>
   );
