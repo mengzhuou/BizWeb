@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import GenderDropdown from "./GenderDropdown";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import Axios from "axios";
 
 function RegisterClient() {
   const [firstName, setFirstName] = useState("");
@@ -36,7 +37,47 @@ function RegisterClient() {
   };
 
   const handleSubmit = () => {
-    console.log(firstName, lastName, email, birthday, phoneNumber, gender);
+    // Create an object to hold the client data
+    const clientData = {
+      firstName,
+      lastName,
+      email,
+      birthday,
+      phoneNumber,
+      gender,
+    };
+
+    // Make a POST request clients backend API
+    Axios.post("http://localhost:3500/clients", clientData)
+      .then((response) => {
+        // Handle a successful response here,
+        console.log("Client created successfully", response.data);
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          if (error.response.data.message === "All fields are required") {
+            console.log(error.response.data.message);
+          }
+        }
+        // If the server responded with an error, check the status code
+        if (error.response.status === 409) {
+          // Check the error response data for specific messages
+          if (
+            error.response.data.message === "Email has already been registered."
+          ) {
+            console.log(error.response.data.message);
+          } else if (
+            error.response.data.message ===
+            "Phone number has already been registered."
+          ) {
+            console.log(error.response.data.message);
+          } else {
+            console.error("Error creating client", error);
+          }
+        } else {
+          console.error("Network error or other issues", error);
+        }
+      });
   };
 
   return (
