@@ -7,9 +7,6 @@ const Public = () => {
         <h1>
           Welcome to <span className="nowrap">Bizweb</span>
         </h1>
-        <div>
-          <Link to="/register">Client Register</Link>
-        </div>
       </header>
       <main className="public__main">
         <p>TBD</p>
