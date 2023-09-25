@@ -4,8 +4,7 @@
   "description": "Bizweb MERN Project",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "nodemon server"
   },
   "keywords": [],
   "author": "",
