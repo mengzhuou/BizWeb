@@ -1,5 +1,5 @@
 1. [x] Welcome page: Provide a welcome page with Org information, contact. login option in the footer nav bar
-2. [ ] Login page: Allows employee(including manager) login to the website. Ask for username, password.
+2. [ ] Login page: Allows employee(including manager) login to the website. Ask for username, password. When textfields are all empty, it cannot be logged in. When authentification failed, have a alert window "Sorry, either your username or password is incorrect.". Improve the CSS. 
 3. [ ] Register client page: needs to fill out input textfields - client's firstname, lastname, birthday, phone number. Have a register button. Show alert window for whether client is registered successfully or not. If successful, clear the textfield if and re-direct to DirectProject page. 
 4. [ ] Logout: Provide a logout option in the bottom right of footer nav bar, users will be logged out without access to tabs that need credentials, and will be navigated to the welcome page
 5. [x] Menu page: after logging in, users will see three button options: Register a new client, Look up an existing client, Direct project
@@ -12,4 +12,3 @@
 12. [ ] Remove a client function: needs client id to remove the client. 
 13. [ ] Display client page: display client's information and allows for edition. Have these buttons ready - Edit, Save, Cancel. When user clicks Edit, edit button disappeared, Save and Cancel button appearred. The information becomes textfield that stores those information. Changes will not be saved until Save is clicked. Clicking cancel will cancel all changes.
 14. [ ] Removes a client page: Manager is able to search client based on client "id" or "first name and last name and birthday". Show search result. Have a Remove button. Prompt a Are You Sure model to confirm or cancel this action. 
-15. 
