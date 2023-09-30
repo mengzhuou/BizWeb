@@ -35,9 +35,6 @@ const Menu = () => {
       </main>
       <footer>
         <Link to="/" className="menuFooter">
-          Welcome
-        </Link>
-        <Link to="/" className="menuFooter">
           Log Out
         </Link>
       </footer>
