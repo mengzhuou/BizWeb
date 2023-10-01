@@ -1,7 +1,5 @@
-# User Stories for BizWebs
-
 1. [x] Welcome page: Provide a welcome page with Org information, contact. login option in the footer nav bar
-2. [ ] Login page: Allows employee(including manager) login to the website. Ask for username, password.
+2. [ ] Login page: Allows employee(including manager) login to the website. Ask for username, password. When textfields are all empty, it cannot be logged in. When authentification failed, have a alert window "Sorry, either your username or password is incorrect.". Improve the CSS. 
 3. [ ] Register client page: needs to fill out input textfields - client's firstname, lastname, birthday, phone number. Have a register button. Show alert window for whether client is registered successfully or not. If successful, clear the textfield if and re-direct to DirectProject page. 
 4. [ ] Logout: Provide a logout option in the bottom right of footer nav bar, users will be logged out without access to tabs that need credentials, and will be navigated to the welcome page
 5. [x] Menu page: after logging in, users will see three button options: Register a new client, Look up an existing client, Direct project
@@ -9,10 +7,13 @@
 7. [ ] Register an employee page: textfield required for employee's username, password, fname, lname, birthday, phone. Have a register button. Test if you can log in using the credential you just registered. 
 8. [ ] Remove an employee page: enter employee's fname, lname. Have a Remove button. When remove is clicked, show a warning message: "employee is successdully deleted." 
 9. [ ] Direct project page: has project 1, project 2, project 3 options. 
-10. [ ] Existing client page: user needs to fill out input textfields: fname, lname of the client. Have a search button, show a warning message if client does not exist in our database. 
-11. [ ] Get client(s) from searching: based on input (firstname, lastname), return client(s) id,firstname, lastname, birthday
+10. [ ] Existing client page: user needs to fill out ONE of the input textfields: name, birthday, phone number. Have a search button, show a warning message if client does not exist in our database. 
+11. [ ] Get client(s) from searching: in the backend, based on input (firstname, lastname), return client(s) id, firstname, lastname, birthday. in the frontend, search results display like a Table in the bottom of the page after the search button is clicked. Displayed client(s) search result in the table, columns include firstName, lastName, birthday. Client rows are clickable, that will bring user to selected Client page.
 12. [ ] Remove a client function: needs client id to remove the client. 
-13. [ ] Edit client base on id: textfield temporarily store changes until update button is hit. 
-14. [ ] Removes a client page: Search client based on client id. Show search result. Have a Remove button. Prompt a Are You Sure model to confirm or cancel this action. 
-15. [ ] Searching result in Existing client page: Search results display like a Table in the bottom of the page after the search button is clicked. Displayed client(s) search result in the table, columns include firstName, lastName, birthday. Client rows are clickable, that will bring user to selected Client page.
-16. [ ] Display client page: display client's information. Have these buttons ready - Edit, Save, Cancel. When user clicks Edit, edit button disappeared, Save and Cancel button appearred. The information becomes textfield that stores those information. Changes will not be saved until Save is clicked. Clicking cancel will cancel all changes.
+13. [ ] Display client page: display client's information and allows for edition. Upload documents can select multiple files at one time. Each document is in its own line, if there're too many documents at one time, the page will have a vertical scroll bar.  
+14. [ ] Removes a client page: Manager is able to search client based on client "id" or "first name and last name and birthday". Show search result. Have a Remove button. Prompt a Are You Sure model to confirm or cancel this action. 
+15. [ ] Client Info - Edit function and css: when clicking the Edit button, Edit button disappeared. All client info testfield becomes editable (add some CSS to add a background layer to the text field). when clicking the Cancel button, nothing changed. The Edit button appeared. When clicking the Save button, what’s in the textfield will be updated to the Client’s info in database. The Edit button appeared.
+16. [ ] Look up existing client - without using Search button: Let's extract all Client information and store it in the frontend cache, then the output sync with every change of input automatically. 
+17. [ ] Register Client - warning: Textfield show specific warning after the specific input text field if input does not make sense. 
+18. [ ] Look up existing client - row clickable: Make each row clickable and can navigate to the corresponding client info page. 
+19. [ ] Look up existing client - Delicate name searching: Instead of searching for the first name only, allow user to search for any part of the name as long as the input string matched with the output. 
