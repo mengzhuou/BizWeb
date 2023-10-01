@@ -4,6 +4,8 @@ import GenderDropdown from "./GenderDropdown";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function RegisterClient() {
   const [firstName, setFirstName] = useState("");
@@ -48,31 +50,28 @@ function RegisterClient() {
 
     Axios.post("http://localhost:3500/clients", clientData)
       .then((response) => {
-        console.log("Client created successfully", response.data);
+        toast.success("Successfully added to the database");
       })
       .catch((error) => {
-        if (error.response.status === 400) {
-          if (error.response.data.message === "All fields are required") {
-            console.log(error.response.data.message);
+        let errorMessage = "An error occurred.";
+
+        if (error.response) {
+          switch (error.response.status) {
+            case 400:
+              errorMessage =
+                error.response.data.message === "All fields are required"
+                  ? error.response.data.message
+                  : errorMessage;
+              break;
+            case 409:
+              errorMessage = error.response.data.message;
+              break;
+            default:
+              errorMessage = "Unhandled error status: " + error.response.status;
           }
-        }
-        // If the server responded with an error, check the status code
-        if (error.response.status === 409) {
-          // Check the error response data for specific messages
-          if (
-            error.response.data.message === "Email has already been registered."
-          ) {
-            console.log(error.response.data.message);
-          } else if (
-            error.response.data.message ===
-            "Phone number has already been registered."
-          ) {
-            console.log(error.response.data.message);
-          } else {
-            console.error("Error creating client", error);
-          }
+          toast.error(errorMessage);
         } else {
-          console.error("Network error or other issues", error);
+          toast.error("Network error or other issues");
         }
       });
   };
@@ -150,6 +149,7 @@ function RegisterClient() {
             >
               Register
             </button>
+            <ToastContainer />
           </div>
         </div>
       </main>
