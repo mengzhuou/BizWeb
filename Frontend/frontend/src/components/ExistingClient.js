@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const ExistingClient = () => {
-  const content = <section className="public"></section>;
-  return content;
+  return <div> Hello </div>;
 };
 export default ExistingClient;

@@ -6,6 +6,7 @@ import {
   RegisterClient,
   ExistingClient,
   DirectProject,
+  DisplayClient,
 } from "./components";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="registerClient" element={<RegisterClient />} />
         <Route path="existingClient" element={<ExistingClient />} />
         <Route path="directProject" element={<DirectProject />} />
+        <Route path="displayClient/:clientId" element={<DisplayClient />} />
       </Route>
     </Routes>
   );
