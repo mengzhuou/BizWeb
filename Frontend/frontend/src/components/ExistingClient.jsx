@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Table from "./Table";
 import Pagination from "./Pagination";
 import LookupClient from "./LookupClient";
@@ -10,6 +11,8 @@ const ExistingClient = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [clientPerPage] = useState(5);
+  const [validInput, setValidInput] = useState(true);
+  const [isUserFound, setIsUserFound] = useState(true);
   const nameSearch = useRef(null);
   const birthdaySearch = useRef(null);
   const phoneSearch = useRef(null);
@@ -17,7 +20,6 @@ const ExistingClient = () => {
   useEffect(() => {
     axios.get("http://localhost:3500/clients").then((res) => {
       setClients(res.data);
-      setFilteredClients(res.data);
       setLoading(false);
     });
   }, []);
@@ -31,10 +33,20 @@ const ExistingClient = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+
+    if (
+      !nameSearch.current.value &&
+      !phoneSearch.current.value &&
+      !birthdaySearch.current.value
+    ) {
+      setValidInput(false);
+      return;
+    }
     let clientsMatched = clients;
     if (nameSearch.current.value) {
       clientsMatched = clientsMatched.filter(
-        (client) => client.firstName === nameSearch.current.value
+        (client) =>
+          client.firstName + " " + client.lastName === nameSearch.current.value
       );
     }
     if (birthdaySearch.current.value) {
@@ -48,10 +60,13 @@ const ExistingClient = () => {
         (client) => client.phoneNumber === parseInt(phoneSearch.current.value)
       );
     }
-    nameSearch.current.value = "";
-    birthdaySearch.current.value = "";
-    phoneSearch.current.value = "";
+    if (clientsMatched.length === 0) {
+      setIsUserFound(false);
+    } else {
+      setIsUserFound(true);
+    }
     setFilteredClients(clientsMatched);
+    setValidInput(true);
   };
 
   const paginate = (pageNumber) => {
@@ -60,6 +75,12 @@ const ExistingClient = () => {
 
   return (
     <div className="p-3">
+      <header>
+        <Link to="/" className="topNavBar">
+          Log Out
+        </Link>
+      </header>
+      <header className="my-4">Look Up Existing Client</header>
       <div className="flex flex-col justify-center items-center p-2">
         <LookupClient
           nameSearch={nameSearch}
@@ -68,13 +89,22 @@ const ExistingClient = () => {
           handleSearch={handleSearch}
         />
         <div className="my-10"></div>
-        <Table clients={currentClients} loading={loading} />
-        <Pagination
-          currentPage={currentPage}
-          userPerPage={clientPerPage}
-          totalUser={filteredClients.length}
-          paginate={paginate}
-        />
+
+        {!validInput ? (
+          <h2>'Please fill out one of the input field'</h2>
+        ) : !isUserFound ? (
+          <h2>'User not found'</h2>
+        ) : (
+          <>
+            <Table clients={currentClients} loading={loading} />
+            <Pagination
+              currentPage={currentPage}
+              userPerPage={clientPerPage}
+              totalUser={filteredClients.length}
+              paginate={paginate}
+            />
+          </>
+        )}
       </div>
     </div>
   );

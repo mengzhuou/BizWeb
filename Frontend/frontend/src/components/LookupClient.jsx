@@ -16,7 +16,7 @@ const LookupClient = ({
           ref={nameSearch}
           id="searchInput"
           type="text"
-          placeholder="First Name"
+          placeholder="Full Name"
           className="text-lg rounded-md p-2 text-black focus:outline-none"
         />
         <label htmlFor="searchInput" className="m-3 text-lg">
@@ -25,8 +25,8 @@ const LookupClient = ({
         <input
           ref={birthdaySearch}
           id="searchInput"
-          type="date"
-          placeholder="Birthday"
+          type="text"
+          placeholder="MM/DD/YYYY"
           className="text-lg rounded-md p-2 text-black focus:outline-none"
         />
         <label htmlFor="searchInput" className="m-3 text-lg">

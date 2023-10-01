@@ -29,7 +29,6 @@ const Table = ({ clients, loading }) => {
     <table className="table">
       <thead className="text-white text-lg">
         <tr>
-          <th></th>
           <th>FirstName</th>
           <th>LastName</th>
           <th>Email</th>
@@ -50,7 +49,6 @@ const Table = ({ clients, loading }) => {
             gender,
           }) => (
             <tr key={_id}>
-              <td>{_id}</td>
               <td>{firstName}</td>
               <td>{lastName}</td>
               <td>{email}</td>
