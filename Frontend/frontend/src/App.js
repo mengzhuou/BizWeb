@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import {
   Layout,
-  Public,
   Login,
   Menu,
   RegisterClient,
@@ -13,8 +12,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Public />} />
-        <Route path="login" element={<Login />} />
+        <Route index element={<Login />} />
         <Route path="menu" element={<Menu />} />
         <Route path="registerClient" element={<RegisterClient />} />
         <Route path="existingClient" element={<ExistingClient />} />

@@ -33,7 +33,6 @@ function RegisterClient() {
     if (id === "gender") {
       setGender(value);
     }
-    // No need to set gender here since it's handled by the GenderDropdown component
   };
 
   const handleSubmit = () => {
@@ -47,10 +46,8 @@ function RegisterClient() {
       gender,
     };
 
-    // Make a POST request clients backend API
     Axios.post("http://localhost:3500/clients", clientData)
       .then((response) => {
-        // Handle a successful response here,
         console.log("Client created successfully", response.data);
       })
       .catch((error) => {
@@ -83,9 +80,17 @@ function RegisterClient() {
   return (
     <section className="public">
       <header>
-        <h1>Register Client</h1>
+      </header>
+      <header>
+        <Link to="/" className="topNavBar">
+          Log Out
+        </Link>
+        <Link to="/Menu" className="topNavBar">
+          Menu
+        </Link>
       </header>
       <main className="public__main">
+        <h1>Register Client</h1>
         <div>
           <div>
             <div>
@@ -156,9 +161,6 @@ function RegisterClient() {
           </div>
         </div>
       </main>
-      <footer>
-        <Link to="/">Welcome</Link>
-      </footer>
     </section>
   );
 }
