@@ -176,3 +176,7 @@ a:focus-visible {
   width: auto;
   height: auto;
 }
+
+.topNavBar{
+  margin-right: 3%;
+}

@@ -80,9 +80,17 @@ function RegisterClient() {
   return (
     <section className="public">
       <header>
-        <h1>Register Client</h1>
+      </header>
+      <header>
+        <Link to="/" className="topNavBar">
+          Log Out
+        </Link>
+        <Link to="/Menu" className="topNavBar">
+          Menu
+        </Link>
       </header>
       <main className="public__main">
+        <h1>Register Client</h1>
         <div>
           <div>
             <div>
@@ -153,11 +161,6 @@ function RegisterClient() {
           </div>
         </div>
       </main>
-      <footer>
-        <Link to="/" className="menuFooter">
-          Log Out
-        </Link>
-      </footer>
     </section>
   );
 }
