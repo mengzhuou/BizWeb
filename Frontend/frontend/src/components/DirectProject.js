@@ -4,6 +4,7 @@ import "./Menu.css";
 import NavBar from "./NavBar";
 
 const DirectProject = () => {
+
   const getInitialState = () => {
     const value = "Project1";
     return value;
