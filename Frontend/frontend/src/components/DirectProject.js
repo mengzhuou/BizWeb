@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import "./Menu.css";
+
 
 
 const DirectProject = () => {
@@ -23,16 +25,23 @@ const DirectProject = () => {
   const content = (
     <section className="public">
       <header>
-        <h1>Direct Project</h1>
+        <Link to="/" className="topNavBar">
+          Log Out
+        </Link>      
       </header>
       <main className="public__main">
-        <p>Select a Project</p>
-        <select value={value} onChange={handleChange}>
-          <option value="Project1">Project 1</option>
-          <option value="Project2">Project 2</option>
-          <option value="Project3">Project 3</option>
-        </select>
-        <button onClick={handleProject}>Submit</button>
+        <h1>Direct Project</h1>
+        <div className="menuButtonContainer">
+          <h1>Select a Project</h1>
+          <select className="menuButton" value={value} onChange={handleChange}>
+            <option value="Project1">Project 1</option>
+            <option value="Project2">Project 2</option>
+            <option value="Project3">Project 3</option>
+          </select>
+          <button className="menuButton" onClick={handleProject}>
+            Submit
+          </button>
+        </div>
       </main>
       <footer>
         <Link to="/">Welcome</Link>
