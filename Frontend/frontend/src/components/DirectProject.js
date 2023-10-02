@@ -28,6 +28,9 @@ const DirectProject = () => {
         <Link to="/" className="topNavBar">
           Log Out
         </Link>      
+        <Link to="/menu" className="topNavBar">
+          Menu
+        </Link>      
       </header>
       <main className="public__main">
         <h1>Direct Project</h1>
@@ -43,9 +46,6 @@ const DirectProject = () => {
           </button>
         </div>
       </main>
-      <footer>
-        <Link to="/">Welcome</Link>
-      </footer>
     </section>
   );
   return content;
