@@ -16,7 +16,7 @@ const login = asyncHandler(async (req, res) => {
     const foundUser = await User.findOne({ username }).exec()
 
     if (!foundUser || !foundUser.active) {
-        return res.status(401).json({ message: 'Unauthorized' })
+        return res.status(401).json({ message: 'Unauthorized no user' })
     }
 
     const match = await bcrypt.compare(password, foundUser.password)
@@ -51,6 +51,59 @@ const login = asyncHandler(async (req, res) => {
     // Send accessToken containing username and roles 
     res.json({ accessToken })
 })
+
+
+
+const register = asyncHandler(async (req, res) => {
+    const { username, password, roles } = req.body
+
+    if (!username || !password) {
+        return res.status(400).json({ message: 'All fields are required' })
+    }
+
+    const duplicate = await User.findOne({ username }).lean().exec()
+
+    if (duplicate) {
+        return res.status(409).json({ message: 'Duplicate username' })
+    }
+
+    const hashedPwd = await bcrypt.hash(password, 10) // salt rounds
+
+    const userObject = { username, "password": hashedPwd, roles }
+
+    const user = await User.create(userObject)
+
+
+    const accessToken = jwt.sign(
+        {
+            "UserInfo": {
+                "username": username,
+                "roles": roles
+            }
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: '10m' }
+    )
+
+    const refreshToken = jwt.sign(
+        { "username": username },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: '7d' }
+    )
+
+    // Create secure cookie with refresh token 
+    res.cookie('jwt', refreshToken, {
+        httpOnly: true, //accessible only by web server 
+        secure: true, //https
+        sameSite: 'None', //cross-site cookie 
+        maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+    })
+
+    // Send accessToken containing username and roles 
+    res.json({ accessToken })
+})
+
+
 
 // @desc Refresh
 // @route GET /auth/refresh
@@ -101,5 +154,6 @@ const logout = (req, res) => {
 module.exports = {
     login,
     refresh,
-    logout
+    logout,
+    register
 }
