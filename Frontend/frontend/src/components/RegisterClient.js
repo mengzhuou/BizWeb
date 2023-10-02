@@ -52,7 +52,7 @@ function RegisterClient() {
     Axios.post("http://localhost:3500/clients", clientData)
       .then((response) => {
         // toast.success("Successfully added to the database");
-        const newClientId = response.data.id;
+        const newClientId = response.data._id;
         navigate(`/displayClient/${newClientId}`);
       })
       .catch((error) => {
