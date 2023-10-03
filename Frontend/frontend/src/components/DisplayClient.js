@@ -18,6 +18,9 @@ const DisplayClient = () => {
         console.log(response.data);
         const { firstName, lastName, birthday, phoneNumber, email, gender } =
           response.data.clientFound;
+        const type = typeof birthday;
+
+        console.log(type);
 
         setFirstName(firstName);
         setLastName(lastName);
@@ -25,7 +28,6 @@ const DisplayClient = () => {
         setPhoneNumber(phoneNumber);
         setEmail(email);
         setGender(gender);
-        console.log(clientId);
       })
       .catch((error) => {
         console.log(error);
@@ -34,13 +36,11 @@ const DisplayClient = () => {
 
   return (
     <div>
-      <p>{firstName}</p>
-      <p>{lastName}</p>
-      <p>{birthday}</p>
-      <p>{birthday}</p>
-      <p>{phoneNumber}</p>
-      <p>{email}</p>
-      <p>{gender}</p>
+      <div>First Name: {firstName}</div>
+      <div>Last Name: {lastName}</div>
+      <div>Birthday: {birthday}</div>
+      <div>Phonenumber: {phoneNumber}</div>
+      <div>Email: {email}</div>
     </div>
   );
 };
