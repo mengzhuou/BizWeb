@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GenderDropdown from "./GenderDropdown";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -14,6 +14,7 @@ function RegisterClient() {
   const [birthday, setBirthday] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -50,7 +51,9 @@ function RegisterClient() {
 
     Axios.post("http://localhost:3500/clients", clientData)
       .then((response) => {
-        toast.success("Successfully added to the database");
+        // toast.success("Successfully added to the database");
+        const newClientId = response.data._id;
+        navigate(`/displayClient/${newClientId}`);
       })
       .catch((error) => {
         let errorMessage = "An error occurred.";
@@ -134,6 +137,11 @@ function RegisterClient() {
                 country={"us"}
                 value={phoneNumber}
                 onChange={(value) => setPhoneNumber(value)}
+                placeholder="Enter phone number"
+                inputStyle={{
+                  width: "13%",
+                  height: "30px",
+                }}
               />
             </div>
             <div>
