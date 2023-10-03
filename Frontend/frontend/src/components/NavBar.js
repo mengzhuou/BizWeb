@@ -7,7 +7,7 @@ export default function NavBar() {
       <Link to="/" class="float-right" className="topNavBar float-right">
         Log Out
       </Link>
-      <Link to="/" className="topNavBar float-right">
+      <Link to="/menu" className="topNavBar float-right">
         Menu
       </Link>
       <Link to="/" className="topNavBar float-right">

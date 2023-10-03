@@ -4,6 +4,7 @@ import GenderDropdown from "./GenderDropdown";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Axios from "axios";
+import Navbar from "./NavBar";
 
 function RegisterClient() {
   const [firstName, setFirstName] = useState("");
@@ -79,15 +80,9 @@ function RegisterClient() {
 
   return (
     <section className="public">
+      <header></header>
       <header>
-      </header>
-      <header>
-        <Link to="/" className="topNavBar">
-          Log Out
-        </Link>
-        <Link to="/Menu" className="topNavBar">
-          Menu
-        </Link>
+        <Navbar />
       </header>
       <main className="public__main">
         <h1>Register Client</h1>
