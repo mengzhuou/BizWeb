@@ -80,7 +80,6 @@ function RegisterClient() {
 
   return (
     <section className="public">
-      <header></header>
       <header>
         <Navbar />
       </header>
