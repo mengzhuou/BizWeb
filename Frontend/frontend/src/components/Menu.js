@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Menu.css";
+import NavBar from "./NavBar";
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -18,9 +19,7 @@ const Menu = () => {
   const content = (
     <section className="public">
       <header>
-        <Link to="/" className="topNavBar">
-          Log Out
-        </Link>
+        <NavBar />
       </header>
       <main className="public__main">
         <h1>Menu</h1>
