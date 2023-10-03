@@ -137,6 +137,11 @@ function RegisterClient() {
                 country={"us"}
                 value={phoneNumber}
                 onChange={(value) => setPhoneNumber(value)}
+                placeholder="Enter phone number"
+                inputStyle={{
+                  width: "13%",
+                  height: "30px",
+                }}
               />
             </div>
             <div>
