@@ -1,6 +1,8 @@
 const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
 
 // @desc Get all users
 // @route GET /users
