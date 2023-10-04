@@ -18,12 +18,9 @@ const Menu = () => {
   const content = (
     <section className="public">
       <header>
-        <Link to="/" className="topNavBar">
-          Log Out
-        </Link>
+        <h1>Menu</h1>
       </header>
       <main className="public__main">
-        <h1>Menu</h1>
         <div className="menuButtonContainer">
           <button className="menuButton" onClick={handleRegisterClient}>
             Register a New Client
@@ -36,6 +33,11 @@ const Menu = () => {
           </button>
         </div>
       </main>
+      <footer>
+        <Link to="/" className="menuFooter">
+          Log Out
+        </Link>
+      </footer>
     </section>
   );
   return content;

@@ -80,7 +80,9 @@ const ExistingClient = () => {
           Log Out
         </Link>
       </header>
-      <header className="my-4">Look Up Existing Client</header>
+      <header className="my-2">
+        <h1 className="text-xl">Look Up Existing Client</h1>
+      </header>
       <div className="flex flex-col justify-center items-center p-2">
         <LookupClient
           nameSearch={nameSearch}
@@ -93,7 +95,7 @@ const ExistingClient = () => {
         {!validInput ? (
           <h2>'Please fill out one of the input field'</h2>
         ) : !isUserFound ? (
-          <h2>'User not found'</h2>
+          <h1 className="text-red-500 text-xl">User Not Found</h1>
         ) : (
           <>
             <Table clients={currentClients} loading={loading} />
