@@ -22,7 +22,6 @@ const Menu = () => {
         <NavBar />
       </header>
       <main className="public__main">
-        <h1>Menu</h1>
         <div className="menuButtonContainer">
           <button className="menuButton" onClick={handleRegisterClient}>
             Register a New Client
