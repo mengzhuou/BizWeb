@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+=======
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+>>>>>>> main
 
 * {
   margin: 0;
@@ -10,22 +17,9 @@
   box-sizing: border-box;
 }
 
-/* || VARIABLES */
-
 :root {
-  /* COLORS */
-  --BGCOLOR: #0f172a;
+  --BGCOLOR: #9ebbff;
   --BORDER-COLOR: #fff;
-  --COLOR: #fff;
-  --ERROR: firebrick;
-  --INACTIVE: lightgray;
-  --LINK-COLOR: whitesmoke;
-  --LINK-HOVER: rgba(245, 245, 245, 0.9);
-  --NOTE-BGCOLOR: hsla(240, 64%, 27%, 0.65);
-  --STATUS-COMPLETE: limegreen;
-  --STATUS-OPEN: firebrick;
-  --TABLE-BGCOLOR: #fff;
-  --TABLE-COLOR: #000;
 }
 
 /* || UTILITY CLASSES */
@@ -181,6 +175,6 @@ a:focus-visible {
   height: auto;
 }
 
-.topNavBar{
+.topNavBar {
   margin-right: 3%;
 }
