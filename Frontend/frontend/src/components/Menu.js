@@ -34,11 +34,6 @@ const Menu = () => {
           </button>
         </div>
       </main>
-      <footer>
-        <Link to="/" className="menuFooter">
-          Log Out
-        </Link>
-      </footer>
     </section>
   );
   return content;

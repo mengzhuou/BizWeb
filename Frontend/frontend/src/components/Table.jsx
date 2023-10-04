@@ -34,7 +34,6 @@ const Table = ({ clients, loading }) => {
           <th>Email</th>
           <th>Birth Date</th>
           <th>Phone Number</th>
-          <th>Gender</th>
         </tr>
       </thead>
       <tbody className="text-lg">
@@ -46,7 +45,6 @@ const Table = ({ clients, loading }) => {
             email,
             birthday,
             phoneNumber,
-            gender,
           }) => (
             <tr key={_id}>
               <td>{firstName}</td>
@@ -54,7 +52,6 @@ const Table = ({ clients, loading }) => {
               <td>{email}</td>
               <td>{formatBirthday(birthday)}</td>
               <td>{formatPhoneNumber(phoneNumber)}</td>
-              <td>{gender}</td>
             </tr>
           )
         )}
