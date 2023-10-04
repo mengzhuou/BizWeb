@@ -1,28 +1,25 @@
 .menuButtonContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menuButton {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #5b7088;; /* Change this to your desired background color */
+  color: #fff; /* Change this to your desired text color */
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
   
-  .menuButton {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #5b7088;; /* Change this to your desired background color */
-    color: #fff; /* Change this to your desired text color */
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
+.menuButton:hover {
+  background-color: #0056b3; /* Change this to the hover color */
+}
   
-  .menuButton:hover {
-    background-color: #0056b3; /* Change this to the hover color */
-  }
-  
-  .menuFooter{
-    margin-right: 5%;
-  }
   

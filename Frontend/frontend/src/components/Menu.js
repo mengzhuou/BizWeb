@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Menu.css";
+import NavBar from "./NavBar";
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -18,9 +19,10 @@ const Menu = () => {
   const content = (
     <section className="public">
       <header>
-        <h1>Menu</h1>
+        <NavBar />
       </header>
       <main className="public__main">
+        <h1>Menu</h1>
         <div className="menuButtonContainer">
           <button className="menuButton" onClick={handleRegisterClient}>
             Register a New Client
@@ -33,14 +35,6 @@ const Menu = () => {
           </button>
         </div>
       </main>
-      <footer>
-        <Link to="/" className="menuFooter">
-          Welcome
-        </Link>
-        <Link to="/" className="menuFooter">
-          Log Out
-        </Link>
-      </footer>
     </section>
   );
   return content;
