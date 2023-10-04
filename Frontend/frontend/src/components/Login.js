@@ -16,10 +16,8 @@ const Login = () => {
     }
     const content = (
         <section className="public">
-            <header>
-                <h1>Login</h1>
-            </header>
             <main className="public__main">
+                <h1>Login</h1>
                 <form className="login-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">email</label>
                 <input value={email} type="email" onChange={(e) => setEmail(e.target.value)} placeholder="youremail@gmail.com" id="email" name="email" />
