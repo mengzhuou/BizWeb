@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Table from "./Table";
 import Pagination from "./Pagination";
 import LookupClient from "./LookupClient";
+import NavBar from "./NavBar";
 
 const ExistingClient = () => {
   const [clients, setClients] = useState([]);
@@ -20,6 +21,7 @@ const ExistingClient = () => {
   useEffect(() => {
     axios.get("http://localhost:3500/clients").then((res) => {
       setClients(res.data);
+      setFilteredClients(res.data);
       setLoading(false);
     });
   }, []);
@@ -42,6 +44,7 @@ const ExistingClient = () => {
       setValidInput(false);
       return;
     }
+
     let clientsMatched = clients;
     if (nameSearch.current.value) {
       clientsMatched = clientsMatched.filter(
@@ -74,41 +77,43 @@ const ExistingClient = () => {
   };
 
   return (
-    <div className="p-3">
+    <section className="public">
       <header>
-        <Link to="/" className="topNavBar">
-          Log Out
-        </Link>
+        <NavBar />
       </header>
-      <header className="my-2">
-        <h1 className="text-xl">Look Up Existing Client</h1>
-      </header>
-      <div className="flex flex-col justify-center items-center p-2">
-        <LookupClient
-          nameSearch={nameSearch}
-          birthdaySearch={birthdaySearch}
-          phoneSearch={phoneSearch}
-          handleSearch={handleSearch}
-        />
-        <div className="my-10"></div>
-
-        {!validInput ? (
-          <h2>'Please fill out one of the input field'</h2>
-        ) : !isUserFound ? (
-          <h1 className="text-red-500 text-xl">User Not Found</h1>
-        ) : (
-          <>
-            <Table clients={currentClients} loading={loading} />
-            <Pagination
-              currentPage={currentPage}
-              userPerPage={clientPerPage}
-              totalUser={filteredClients.length}
-              paginate={paginate}
+      <main className="public__main">
+        <div className="p-3">
+          <header className="my-2">
+            <h1 className="text-xl">Look Up Existing Client</h1>
+          </header>
+          <div className="flex flex-col justify-center items-center p-2">
+            <LookupClient
+              nameSearch={nameSearch}
+              birthdaySearch={birthdaySearch}
+              phoneSearch={phoneSearch}
+              handleSearch={handleSearch}
             />
-          </>
-        )}
-      </div>
-    </div>
+            <div className="my-10"></div>
+
+            {!validInput ? (
+              <h2>'Please fill out one of the input field'</h2>
+            ) : !isUserFound ? (
+              <h1 className="text-red-500 text-xl">User Not Found</h1>
+            ) : (
+              <>
+                <Table clients={currentClients} loading={loading} />
+                <Pagination
+                  currentPage={currentPage}
+                  userPerPage={clientPerPage}
+                  totalUser={filteredClients.length}
+                  paginate={paginate}
+                />
+              </>
+            )}
+          </div>
+        </div>
+      </main>
+    </section>
   );
 };
 
