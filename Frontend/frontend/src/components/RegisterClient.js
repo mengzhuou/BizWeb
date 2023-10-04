@@ -6,6 +6,7 @@ import "react-phone-input-2/lib/style.css";
 import Axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Navbar from "./NavBar";
 
 function RegisterClient() {
   const [firstName, setFirstName] = useState("");
@@ -82,9 +83,10 @@ function RegisterClient() {
   return (
     <section className="public">
       <header>
-        <h1>Register Client</h1>
+        <Navbar />
       </header>
       <main className="public__main">
+        <h1>Register Client</h1>
         <div>
           <div>
             <div>
@@ -161,11 +163,6 @@ function RegisterClient() {
           </div>
         </div>
       </main>
-      <footer>
-        <Link to="/" className="menuFooter">
-          Log Out
-        </Link>
-      </footer>
     </section>
   );
 }
