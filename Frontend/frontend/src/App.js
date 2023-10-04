@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import {
   Layout,
-  Login,
   Menu,
   RegisterClient,
   ExistingClient,
   DirectProject,
 } from "./components";
+
+import Login from './features/auth/Login';
+
 
 function App() {
   return (
