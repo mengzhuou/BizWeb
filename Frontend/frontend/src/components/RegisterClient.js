@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GenderDropdown from "./GenderDropdown";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./NavBar";
 
 function RegisterClient() {
@@ -12,7 +14,8 @@ function RegisterClient() {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
+  const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -31,8 +34,8 @@ function RegisterClient() {
     if (id === "phoneNumber") {
       setPhoneNumber(value);
     }
-    if (id === "gender") {
-      setGender(value);
+    if (id === "secondaryPhoneNumber") {
+      setSecondaryPhoneNumber(value);
     }
   };
 
@@ -44,36 +47,33 @@ function RegisterClient() {
       email,
       birthday,
       phoneNumber,
-      gender,
+      secondaryPhoneNumber,
     };
 
     Axios.post("http://localhost:3500/clients", clientData)
       .then((response) => {
-        console.log("Client created successfully", response.data);
+        toast.success("Successfully added to the database");
+        console.log("Successfully added to the database");
+        const newClientId = response.data._id;
+        navigate(`/displayClient/${newClientId}`);
       })
       .catch((error) => {
-        if (error.response.status === 400) {
-          if (error.response.data.message === "All fields are required") {
-            console.log(error.response.data.message);
+        let errorMessage = error.response.data.message;
+
+        if (error.response) {
+          switch (error.response.status) {
+            case 400:
+              errorMessage = error.response.data.message;
+              break;
+            case 409:
+              errorMessage = error.response.data.message;
+              break;
+            default:
+              errorMessage = "Unhandled error status: " + error.response.status;
           }
-        }
-        // If the server responded with an error, check the status code
-        if (error.response.status === 409) {
-          // Check the error response data for specific messages
-          if (
-            error.response.data.message === "Email has already been registered."
-          ) {
-            console.log(error.response.data.message);
-          } else if (
-            error.response.data.message ===
-            "Phone number has already been registered."
-          ) {
-            console.log(error.response.data.message);
-          } else {
-            console.error("Error creating client", error);
-          }
+          toast.error(errorMessage);
         } else {
-          console.error("Network error or other issues", error);
+          toast.error("Network error or other issues");
         }
       });
   };
@@ -125,23 +125,53 @@ function RegisterClient() {
                 value={birthday}
                 onChange={(e) => handleInputChange(e)}
                 placeholder="MM/DD/YYYY"
+                min="1900-01-01"
+                max={new Date().toISOString().split("T")[0]}
               />
             </div>
             <div>
-              <label htmlFor="phoneNumber">Phone Number: </label>
+              <label htmlFor="phoneNumber">Primary Phone Number: </label>
               <PhoneInput
                 inputProps={{
                   name: "phoneNumber",
                   id: "phoneNumber",
                 }}
                 country={"us"}
+                onlyCountries={["us"]}
                 value={phoneNumber}
                 onChange={(value) => setPhoneNumber(value)}
+                placeholder="9 (999) 999-9999"
+                containerStyle={{
+                  height: "50px",
+                }}
+                inputStyle={{
+                  height: "50px",
+                  fontSize: "16px",
+                }}
               />
             </div>
             <div>
-              <label htmlFor="gender">Select Gender: </label>
-              <GenderDropdown setGender={setGender} gender={gender} />
+              <label htmlFor="secondaryPhoneNumber">
+                Secondary Phone Number:{" "}
+              </label>
+              <PhoneInput
+                inputProps={{
+                  name: "secondaryPhoneNumber",
+                  id: "secondaryPhoneNumber",
+                }}
+                country={"us"}
+                onlyCountries={["us"]}
+                value={secondaryPhoneNumber}
+                onChange={(value) => setSecondaryPhoneNumber(value)}
+                placeholder="9 (999) 999-9999"
+                containerStyle={{
+                  height: "50px",
+                }}
+                inputStyle={{
+                  height: "50px",
+                  fontSize: "16px",
+                }}
+              />
             </div>
           </div>
           <div>
@@ -152,6 +182,7 @@ function RegisterClient() {
             >
               Register
             </button>
+            <ToastContainer />
           </div>
         </div>
       </main>
