@@ -2,9 +2,6 @@ import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
 
 const ExistingClient = () => {
-<<<<<<< HEAD
-  return <div> Hello </div>;
-=======
   const content = (
     <section className="public">
       <header>
@@ -13,6 +10,5 @@ const ExistingClient = () => {
     </section>
   );
   return content;
->>>>>>> main
 };
 export default ExistingClient;
