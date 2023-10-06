@@ -24,17 +24,9 @@ const clientValidation = async (data) => {
     birthday,
     phoneNumber,
     secondaryPhoneNumber,
-    gender,
   } = data;
 
-  if (
-    !firstName ||
-    !lastName ||
-    !email ||
-    !birthday ||
-    !phoneNumber ||
-    !gender
-  ) {
+  if (!firstName || !lastName || !email || !birthday || !phoneNumber) {
     return { isValid: false, status: 400, message: "All fields are required" };
   }
   // Validate email

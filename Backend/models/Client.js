@@ -28,10 +28,6 @@ const clientSchema = new mongoose.Schema(
       default: null,
       unique: true,
     },
-    gender: {
-      type: String,
-      required: true,
-    },
   },
   {
     timestamps: true,

@@ -15,7 +15,6 @@ function RegisterClient() {
   const [birthday, setBirthday] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
   const { min, max } = calculateDateRange();
   const navigate = useNavigate();
 
@@ -39,9 +38,6 @@ function RegisterClient() {
     if (id === "secondaryPhoneNumber") {
       setSecondaryPhoneNumber(value);
     }
-    if (id === "gender") {
-      setGender(value);
-    }
   };
 
   const handleSubmit = () => {
@@ -53,7 +49,6 @@ function RegisterClient() {
       birthday,
       phoneNumber,
       secondaryPhoneNumber,
-      gender,
     };
 
     Axios.post("http://localhost:3500/clients", clientData)
@@ -146,7 +141,7 @@ function RegisterClient() {
                 onlyCountries={["us"]}
                 value={phoneNumber}
                 onChange={(value) => setPhoneNumber(value)}
-                placeholder="Enter phone number"
+                placeholder="999-999-9999"
                 inputStyle={{
                   width: "13%",
                   height: "30px",
@@ -166,16 +161,12 @@ function RegisterClient() {
                 onlyCountries={["us"]}
                 value={secondaryPhoneNumber}
                 onChange={(value) => setSecondaryPhoneNumber(value)}
-                placeholder="Enter secondary phone number"
+                placeholder="999-999-9999"
                 inputStyle={{
                   width: "13%",
                   height: "30px",
                 }}
               />
-            </div>
-            <div>
-              <label htmlFor="gender">Select Gender: </label>
-              <GenderDropdown setGender={setGender} gender={gender} />
             </div>
           </div>
           <div>
