@@ -1,46 +1,65 @@
 import React from "react";
+import PhoneInput from "react-phone-input-2";
 
 const LookupClient = ({
   handleSearch,
   nameSearch,
-  phoneSearch,
   birthdaySearch,
+  setPhone,
+  phone,
 }) => {
   return (
-    <form onSubmit={handleSearch} className="mt-10 flex">
+    <form onSubmit={handleSearch} className="flex mt-10">
       <div className="grid grid-cols-2 gap-4">
-        <label htmlFor="searchInput" className="m-3 text-lg">
+        <label htmlFor="searchName" className="m-4 text-lg">
           Name
         </label>
         <input
           ref={nameSearch}
-          id="searchInput"
+          id="searchName"
           type="text"
           placeholder="Full Name"
-          className="text-lg rounded-md p-2 text-black focus:outline-none"
+          className="p-2 text-lg text-black rounded-md focus:outline-none"
         />
-        <label htmlFor="searchInput" className="m-3 text-lg">
+        <label htmlFor="searchBirthday" className="m-4 text-lg">
           Birthday
         </label>
         <input
           ref={birthdaySearch}
-          id="searchInput"
-          type="text"
+          id="searchBirthday"
+          type="date"
+          min="1850-01-01"
+          max={new Date().toISOString().split("T")[0]}
           placeholder="MM/DD/YYYY"
-          className="text-lg rounded-md p-2 text-black focus:outline-none"
+          className="p-2 text-lg text-black rounded-md focus:outline-none"
         />
-        <label htmlFor="searchInput" className="m-3 text-lg">
+        <label htmlFor="searchPhone" className="m-4 text-lg">
           Phone Number
         </label>
-        <input
-          ref={phoneSearch}
-          id="searchInput"
-          type="phoneNumber"
-          placeholder="Phone Number"
-          className="text-lg rounded-md p-2 text-black focus:outline-none"
+        <PhoneInput
+          inputProps={{
+            id: "searchPhone",
+          }}
+          containerStyle={{
+            height: "50px",
+          }}
+          inputStyle={{
+            height: "50px",
+            fontSize: "16px",
+          }}
+          country={"us"}
+          value={phone}
+          onChange={(inp) => setPhone(inp)}
+          placeholder="9 (999) 999-9999"
+          onKeyDown={(e) => {
+            if (e.key == "Enter") {
+              handleSearch(e);
+            }
+          }}
+          className="my-2 text-lg text-black focus:outline-none"
         />
       </div>
-      <button type="submit" className="btn btn-info ml-8 my-20 font-bold">
+      <button type="submit" className="my-20 ml-8 font-bold btn btn-info">
         Look up
       </button>
     </form>
