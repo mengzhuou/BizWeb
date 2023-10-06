@@ -8,10 +8,8 @@ const LookupClient = ({
   setPhone,
   phone,
 }) => {
-  // searchBirthday.max = new Date().toISOString().split("T")[0];
-
   return (
-    <form onSubmit={handleSearch} className="mt-10 flex">
+    <form onSubmit={handleSearch} className="flex mt-10">
       <div className="grid grid-cols-2 gap-4">
         <label htmlFor="searchName" className="m-4 text-lg">
           Name
@@ -21,7 +19,7 @@ const LookupClient = ({
           id="searchName"
           type="text"
           placeholder="Full Name"
-          className="text-lg rounded-md p-2 text-black focus:outline-none"
+          className="p-2 text-lg text-black rounded-md focus:outline-none"
         />
         <label htmlFor="searchBirthday" className="m-4 text-lg">
           Birthday
@@ -33,7 +31,7 @@ const LookupClient = ({
           min="1850-01-01"
           max={new Date().toISOString().split("T")[0]}
           placeholder="MM/DD/YYYY"
-          className="text-lg rounded-md p-2 text-black focus:outline-none"
+          className="p-2 text-lg text-black rounded-md focus:outline-none"
         />
         <label htmlFor="searchPhone" className="m-4 text-lg">
           Phone Number
@@ -58,10 +56,10 @@ const LookupClient = ({
               handleSearch(e);
             }
           }}
-          className="text-lg my-2 text-black focus:outline-none"
+          className="my-2 text-lg text-black focus:outline-none"
         />
       </div>
-      <button type="submit" className="btn btn-info ml-8 my-20 font-bold">
+      <button type="submit" className="my-20 ml-8 font-bold btn btn-info">
         Look up
       </button>
     </form>
