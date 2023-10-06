@@ -161,7 +161,7 @@ function RegisterClient() {
                 onlyCountries={["us"]}
                 value={secondaryPhoneNumber}
                 onChange={(value) => setSecondaryPhoneNumber(value)}
-                placeholder="999-999-9999"
+                placeholder="999-999-1111"
                 inputStyle={{
                   width: "13%",
                   height: "30px",
