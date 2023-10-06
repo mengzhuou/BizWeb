@@ -12,11 +12,10 @@ const ExistingClient = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [clientPerPage] = useState(5);
-  const [validInput, setValidInput] = useState(true);
   const [isUserFound, setIsUserFound] = useState(true);
+  const [phone, setPhone] = useState("");
   const nameSearch = useRef(null);
   const birthdaySearch = useRef(null);
-  const phoneSearch = useRef(null);
 
   useEffect(() => {
     axios.get("http://localhost:3500/clients").then((res) => {
@@ -36,15 +35,6 @@ const ExistingClient = () => {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    if (
-      !nameSearch.current.value &&
-      !phoneSearch.current.value &&
-      !birthdaySearch.current.value
-    ) {
-      setValidInput(false);
-      return;
-    }
-
     let clientsMatched = clients;
     if (nameSearch.current.value) {
       clientsMatched = clientsMatched.filter(
@@ -58,9 +48,9 @@ const ExistingClient = () => {
           client.birthday.slice(0, 10) === birthdaySearch.current.value
       );
     }
-    if (phoneSearch.current.value) {
+    if (phone.length != 0) {
       clientsMatched = clientsMatched.filter(
-        (client) => client.phoneNumber === parseInt(phoneSearch.current.value)
+        (client) => client.phoneNumber === parseInt(phone)
       );
     }
     if (clientsMatched.length === 0) {
@@ -69,7 +59,6 @@ const ExistingClient = () => {
       setIsUserFound(true);
     }
     setFilteredClients(clientsMatched);
-    setValidInput(true);
   };
 
   const paginate = (pageNumber) => {
@@ -83,21 +72,20 @@ const ExistingClient = () => {
       </header>
       <main className="public__main">
         <div className="p-3">
-          <header className="my-2">
-            <h1 className="text-xl">Look Up Existing Client</h1>
+          <header className="fmy-2">
+            <h1 className="text-xl font-bold">Look Up Existing Client</h1>
           </header>
           <div className="flex flex-col justify-center items-center p-2">
             <LookupClient
               nameSearch={nameSearch}
               birthdaySearch={birthdaySearch}
-              phoneSearch={phoneSearch}
               handleSearch={handleSearch}
+              setPhone={setPhone}
+              phone={phone}
             />
             <div className="my-10"></div>
 
-            {!validInput ? (
-              <h2>'Please fill out one of the input field'</h2>
-            ) : !isUserFound ? (
+            {!isUserFound ? (
               <h1 className="text-red-500 text-xl">User Not Found</h1>
             ) : (
               <>
