@@ -54,7 +54,7 @@ const clientValidation = async (data) => {
     };
   }
   // Validate primary phone number
-  regex = /^[0-9]{10}$/;
+  regex = /^\+1\d{10}$|^\+(?!1)\d+$/;
   const primaryDuplicate = await Client.findOne({
     $or: [{ secondaryPhoneNumber: phoneNumber }, { phoneNumber: phoneNumber }],
   })
@@ -75,7 +75,15 @@ const clientValidation = async (data) => {
   }
   // Validate secondary phone number
   if (secondaryPhoneNumber) {
-    regex = /^[0-9]{10}$/;
+    if (secondaryPhoneNumber == phoneNumber) {
+      return {
+        isValid: false,
+        status: 400,
+        message:
+          "Please enter a different secondary phone number other than primary.",
+      };
+    }
+    regex = /^\+1\d{10}$|^\+(?!1)\d+$/;
     const secondaryDuplicate = await Client.findOne({
       $or: [
         { secondaryPhoneNumber: secondaryPhoneNumber },
