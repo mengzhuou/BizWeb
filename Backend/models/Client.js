@@ -23,6 +23,11 @@ const clientSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  secondaryPhoneNumber: {
+    type: Number,
+    default: null,
+    unique: true,
+  },
   gender: {
     type: String,
     required: true,

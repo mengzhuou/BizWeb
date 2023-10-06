@@ -6,8 +6,26 @@ const getClients = asyncHandler(async (req, res) => {
   res.status(200).json(users);
 });
 const createClient = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, birthday, phoneNumber, gender } =
-    req.body;
+  let validation = await clientValidation(req.body);
+  if (!validation.isValid) {
+    return res.status(validation.status).json({ message: validation.message });
+  }
+  const newClient = new Client(req.body);
+
+  const savedClient = await newClient.save();
+  res.status(201).json(savedClient);
+});
+
+const clientValidation = async (data) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    birthday,
+    phoneNumber,
+    secondaryPhoneNumber,
+    gender,
+  } = data;
 
   if (
     !firstName ||
@@ -17,29 +35,69 @@ const createClient = asyncHandler(async (req, res) => {
     !phoneNumber ||
     !gender
   ) {
-    return res.status(400).json({ message: "All fields are required" });
+    return { isValid: false, status: 400, message: "All fields are required" };
   }
-  // Check for duplicate username
+  // Validate email
+  let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const emailDuplicate = await Client.findOne({ email: email }).lean().exec();
-
-  // Check for duplicate phone number
-  const phoneDuplicate = await Client.findOne({ phoneNumber: phoneNumber })
+  if (!regex.test(email)) {
+    return {
+      isValid: false,
+      status: 400,
+      message: "Please enter a valid email address.",
+    };
+  } else if (emailDuplicate) {
+    return {
+      isValid: false,
+      status: 409,
+      message: "Email has already been registered.",
+    };
+  }
+  // Validate primary phone number
+  regex = /^[0-9]{10}$/;
+  const primaryDuplicate = await Client.findOne({
+    $or: [{ secondaryPhoneNumber: phoneNumber }, { phoneNumber: phoneNumber }],
+  })
     .lean()
     .exec();
-
-  if (emailDuplicate) {
-    return res
-      .status(409)
-      .json({ message: "Email has already been registered." });
+  if (!regex.test(phoneNumber)) {
+    return {
+      isValid: false,
+      status: 400,
+      message: "Please enter a valid primary phone number.",
+    };
+  } else if (primaryDuplicate) {
+    return {
+      isValid: false,
+      status: 409,
+      message: "Primary phone number has already been registered.",
+    };
   }
-  if (phoneDuplicate) {
-    return res
-      .status(409)
-      .json({ message: "Phone number has already been registered." });
+  // Validate secondary phone number
+  if (secondaryPhoneNumber) {
+    regex = /^[0-9]{10}$/;
+    const secondaryDuplicate = await Client.findOne({
+      $or: [
+        { secondaryPhoneNumber: secondaryPhoneNumber },
+        { phoneNumber: secondaryPhoneNumber },
+      ],
+    })
+      .lean()
+      .exec();
+    if (!regex.test(secondaryPhoneNumber)) {
+      return {
+        isValid: false,
+        status: 400,
+        message: "Please enter a valid secondary phone number.",
+      };
+    } else if (secondaryDuplicate) {
+      return {
+        isValid: false,
+        status: 409,
+        message: "Secondary phone number has already been registered.",
+      };
+    }
   }
-  const newClient = new Client(req.body);
-
-  const savedClient = await newClient.save();
-  res.status(201).json(savedClient);
-});
+  return { isValid: true, message: "Inputs are valid." };
+};
 module.exports = { getClients, createClient };
