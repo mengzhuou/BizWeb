@@ -15,7 +15,6 @@ function RegisterClient() {
   const [birthday, setBirthday] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
-  const { min, max } = calculateDateRange();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -126,8 +125,8 @@ function RegisterClient() {
                 value={birthday}
                 onChange={(e) => handleInputChange(e)}
                 placeholder="MM/DD/YYYY"
-                min={min}
-                max={max}
+                min="1900-01-01"
+                max={new Date().toISOString().split("T")[0]}
               />
             </div>
             <div>
@@ -189,15 +188,6 @@ function RegisterClient() {
       </main>
     </section>
   );
-}
-function calculateDateRange() {
-  const currentDate = new Date();
-  const minDate = new Date();
-  minDate.setFullYear(currentDate.getFullYear() - 200);
-  return {
-    min: minDate.toISOString().split("T")[0],
-    max: currentDate.toISOString().split("T")[0],
-  };
 }
 
 export default RegisterClient;
