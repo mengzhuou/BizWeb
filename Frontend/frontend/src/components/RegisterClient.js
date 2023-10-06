@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GenderDropdown from "./GenderDropdown";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -13,7 +13,9 @@ function RegisterClient() {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -32,6 +34,9 @@ function RegisterClient() {
     if (id === "phoneNumber") {
       setPhoneNumber(value);
     }
+    if (id === "secondaryPhoneNumber") {
+      setSecondaryPhoneNumber(value);
+    }
     if (id === "gender") {
       setGender(value);
     }
@@ -45,12 +50,15 @@ function RegisterClient() {
       email,
       birthday,
       phoneNumber,
+      secondaryPhoneNumber,
       gender,
     };
 
     Axios.post("http://localhost:3500/clients", clientData)
       .then((response) => {
-        toast.success("Successfully added to the database");
+        // toast.success("Successfully added to the database");
+        const newClientId = response.data._id;
+        navigate(`/displayClient/${newClientId}`);
       })
       .catch((error) => {
         let errorMessage = "An error occurred.";
@@ -125,7 +133,7 @@ function RegisterClient() {
               />
             </div>
             <div>
-              <label htmlFor="phoneNumber">Phone Number: </label>
+              <label htmlFor="phoneNumber">Main Phone Number: </label>
               <PhoneInput
                 inputProps={{
                   name: "phoneNumber",
@@ -134,6 +142,30 @@ function RegisterClient() {
                 country={"us"}
                 value={phoneNumber}
                 onChange={(value) => setPhoneNumber(value)}
+                placeholder="Enter phone number"
+                inputStyle={{
+                  width: "13%",
+                  height: "30px",
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="secondaryPhoneNumber">
+                Secondary Phone Number:{" "}
+              </label>
+              <PhoneInput
+                inputProps={{
+                  name: "secondaryPhoneNumber",
+                  id: "secondaryPhoneNumber",
+                }}
+                country={"us"}
+                value={secondaryPhoneNumber}
+                onChange={(value) => setSecondaryPhoneNumber(value)}
+                placeholder="Enter phone number"
+                inputStyle={{
+                  width: "13%",
+                  height: "30px",
+                }}
               />
             </div>
             <div>
