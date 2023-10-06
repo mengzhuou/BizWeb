@@ -14,7 +14,9 @@ function RegisterClient() {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
+  const { min, max } = calculateDateRange();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -34,6 +36,9 @@ function RegisterClient() {
     if (id === "phoneNumber") {
       setPhoneNumber(value);
     }
+    if (id === "secondaryPhoneNumber") {
+      setSecondaryPhoneNumber(value);
+    }
     if (id === "gender") {
       setGender(value);
     }
@@ -47,25 +52,24 @@ function RegisterClient() {
       email,
       birthday,
       phoneNumber,
+      secondaryPhoneNumber,
       gender,
     };
 
     Axios.post("http://localhost:3500/clients", clientData)
       .then((response) => {
-        // toast.success("Successfully added to the database");
+        toast.success("Successfully added to the database");
+        console.log("Successfully added to the database");
         const newClientId = response.data._id;
         navigate(`/displayClient/${newClientId}`);
       })
       .catch((error) => {
-        let errorMessage = "An error occurred.";
+        let errorMessage = error.response.data.message;
 
         if (error.response) {
           switch (error.response.status) {
             case 400:
-              errorMessage =
-                error.response.data.message === "All fields are required"
-                  ? error.response.data.message
-                  : errorMessage;
+              errorMessage = error.response.data.message;
               break;
             case 409:
               errorMessage = error.response.data.message;
@@ -127,19 +131,42 @@ function RegisterClient() {
                 value={birthday}
                 onChange={(e) => handleInputChange(e)}
                 placeholder="MM/DD/YYYY"
+                min={min}
+                max={max}
               />
             </div>
             <div>
-              <label htmlFor="phoneNumber">Phone Number: </label>
+              <label htmlFor="phoneNumber">Primary Phone Number: </label>
               <PhoneInput
                 inputProps={{
                   name: "phoneNumber",
                   id: "phoneNumber",
                 }}
                 country={"us"}
+                onlyCountries={["us"]}
                 value={phoneNumber}
                 onChange={(value) => setPhoneNumber(value)}
                 placeholder="Enter phone number"
+                inputStyle={{
+                  width: "13%",
+                  height: "30px",
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="secondaryPhoneNumber">
+                Secondary Phone Number:{" "}
+              </label>
+              <PhoneInput
+                inputProps={{
+                  name: "secondaryPhoneNumber",
+                  id: "secondaryPhoneNumber",
+                }}
+                country={"us"}
+                onlyCountries={["us"]}
+                value={secondaryPhoneNumber}
+                onChange={(value) => setSecondaryPhoneNumber(value)}
+                placeholder="Enter secondary phone number"
                 inputStyle={{
                   width: "13%",
                   height: "30px",
@@ -165,6 +192,15 @@ function RegisterClient() {
       </main>
     </section>
   );
+}
+function calculateDateRange() {
+  const currentDate = new Date();
+  const minDate = new Date();
+  minDate.setFullYear(currentDate.getFullYear() - 200);
+  return {
+    min: minDate.toISOString().split("T")[0],
+    max: currentDate.toISOString().split("T")[0],
+  };
 }
 
 export default RegisterClient;
