@@ -141,10 +141,13 @@ function RegisterClient() {
                 onlyCountries={["us"]}
                 value={phoneNumber}
                 onChange={(value) => setPhoneNumber(value)}
-                placeholder="999-999-9999"
+                placeholder="9 (999) 999-9999"
+                containerStyle={{
+                  height: "50px",
+                }}
                 inputStyle={{
-                  width: "13%",
-                  height: "30px",
+                  height: "50px",
+                  fontSize: "16px",
                 }}
               />
             </div>
@@ -161,10 +164,13 @@ function RegisterClient() {
                 onlyCountries={["us"]}
                 value={secondaryPhoneNumber}
                 onChange={(value) => setSecondaryPhoneNumber(value)}
-                placeholder="999-999-1111"
+                placeholder="9 (999) 999-9999"
+                containerStyle={{
+                  height: "50px",
+                }}
                 inputStyle={{
-                  width: "13%",
-                  height: "30px",
+                  height: "50px",
+                  fontSize: "16px",
                 }}
               />
             </div>
