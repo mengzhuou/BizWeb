@@ -6,28 +6,31 @@ const DisplayClient = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
-  // const [clientId, setClientId] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
   const { clientId } = useParams();
 
   useEffect(() => {
     Axios.get(`http://localhost:3500/clients/${clientId}`)
       .then((response) => {
         console.log(response.data);
-        const { firstName, lastName, birthday, phoneNumber, email, gender } =
-          response.data.clientFound;
+        const {
+          firstName,
+          lastName,
+          birthday,
+          phoneNumber,
+          email,
+          secondaryPhoneNumber,
+        } = response.data.clientFound;
         const type = typeof birthday;
-
         console.log(type);
-
         setFirstName(firstName);
         setLastName(lastName);
         setBirthday(birthday);
         setPhoneNumber(phoneNumber);
         setEmail(email);
-        setGender(gender);
+        setSecondaryPhoneNumber(secondaryPhoneNumber);
       })
       .catch((error) => {
         console.log(error);
@@ -36,10 +39,11 @@ const DisplayClient = () => {
 
   return (
     <div>
-      <div>First Name: {firstName}</div>
-      <div>Last Name: {lastName}</div>
+      <div>First name: {firstName}</div>
+      <div>Last name: {lastName}</div>
       <div>Birthday: {birthday}</div>
-      <div>Phonenumber: {phoneNumber}</div>
+      <div>Primary phone number: {phoneNumber}</div>
+      <div>Secondary phone number: {secondaryPhoneNumber} </div>
       <div>Email: {email}</div>
     </div>
   );

@@ -14,7 +14,7 @@ function RegisterClient() {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
+  const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -34,8 +34,8 @@ function RegisterClient() {
     if (id === "phoneNumber") {
       setPhoneNumber(value);
     }
-    if (id === "gender") {
-      setGender(value);
+    if (id === "secondaryPhoneNumber") {
+      setSecondaryPhoneNumber(value);
     }
   };
 
@@ -47,25 +47,23 @@ function RegisterClient() {
       email,
       birthday,
       phoneNumber,
-      gender,
+      secondaryPhoneNumber,
     };
 
     Axios.post("http://localhost:3500/clients", clientData)
       .then((response) => {
-        // toast.success("Successfully added to the database");
+        toast.success("Successfully added to the database");
+        console.log("Successfully added to the database");
         const newClientId = response.data._id;
         navigate(`/displayClient/${newClientId}`);
       })
       .catch((error) => {
-        let errorMessage = "An error occurred.";
+        let errorMessage = error.response.data.message;
 
         if (error.response) {
           switch (error.response.status) {
             case 400:
-              errorMessage =
-                error.response.data.message === "All fields are required"
-                  ? error.response.data.message
-                  : errorMessage;
+              errorMessage = error.response.data.message;
               break;
             case 409:
               errorMessage = error.response.data.message;
@@ -127,28 +125,53 @@ function RegisterClient() {
                 value={birthday}
                 onChange={(e) => handleInputChange(e)}
                 placeholder="MM/DD/YYYY"
+                min="1900-01-01"
+                max={new Date().toISOString().split("T")[0]}
               />
             </div>
             <div>
-              <label htmlFor="phoneNumber">Phone Number: </label>
+              <label htmlFor="phoneNumber">Primary Phone Number: </label>
               <PhoneInput
                 inputProps={{
                   name: "phoneNumber",
                   id: "phoneNumber",
                 }}
                 country={"us"}
+                onlyCountries={["us"]}
                 value={phoneNumber}
                 onChange={(value) => setPhoneNumber(value)}
-                placeholder="Enter phone number"
+                placeholder="9 (999) 999-9999"
+                containerStyle={{
+                  height: "50px",
+                }}
                 inputStyle={{
-                  width: "13%",
-                  height: "30px",
+                  height: "50px",
+                  fontSize: "16px",
                 }}
               />
             </div>
             <div>
-              <label htmlFor="gender">Select Gender: </label>
-              <GenderDropdown setGender={setGender} gender={gender} />
+              <label htmlFor="secondaryPhoneNumber">
+                Secondary Phone Number:{" "}
+              </label>
+              <PhoneInput
+                inputProps={{
+                  name: "secondaryPhoneNumber",
+                  id: "secondaryPhoneNumber",
+                }}
+                country={"us"}
+                onlyCountries={["us"]}
+                value={secondaryPhoneNumber}
+                onChange={(value) => setSecondaryPhoneNumber(value)}
+                placeholder="9 (999) 999-9999"
+                containerStyle={{
+                  height: "50px",
+                }}
+                inputStyle={{
+                  height: "50px",
+                  fontSize: "16px",
+                }}
+              />
             </div>
           </div>
           <div>

@@ -4,9 +4,9 @@ import {
   Login,
   Menu,
   RegisterClient,
-  ExistingClient,
   DirectProject,
   DisplayClient,
+  ExistingClient,
 } from "./components";
 
 function App() {
