@@ -8,6 +8,8 @@ const LookupClient = ({
   setPhone,
   phone,
 }) => {
+  // searchBirthday.max = new Date().toISOString().split("T")[0];
+
   return (
     <form onSubmit={handleSearch} className="mt-10 flex">
       <div className="grid grid-cols-2 gap-4">
@@ -28,6 +30,8 @@ const LookupClient = ({
           ref={birthdaySearch}
           id="searchBirthday"
           type="date"
+          min="1850-01-01"
+          max={new Date().toISOString().split("T")[0]}
           placeholder="MM/DD/YYYY"
           className="text-lg rounded-md p-2 text-black focus:outline-none"
         />
@@ -48,6 +52,7 @@ const LookupClient = ({
           country={"us"}
           value={phone}
           onChange={(inp) => setPhone(inp)}
+          placeholder="9 (999) 999-9999"
           onKeyDown={(e) => {
             if (e.key == "Enter") {
               handleSearch(e);
