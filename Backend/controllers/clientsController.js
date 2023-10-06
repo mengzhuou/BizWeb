@@ -108,4 +108,18 @@ const clientValidation = async (data) => {
   }
   return { isValid: true, message: "Inputs are valid." };
 };
-module.exports = { getClients, createClient };
+
+const deleteClient = asyncHandler(async (req, res) => {
+  const clientId = req.params.id;
+  const resp = await Client.deleteOne({ _id: clientId });
+  if (resp.deletedCount === 0) {
+    return res
+      .status(404)
+      .json({ message: "No clients matched the provided ID" });
+  } else {
+    return res
+      .status(200)
+      .json({ message: `Deleted ${clientId} successfulyy` });
+  }
+});
+module.exports = { getClients, createClient, deleteClient };
