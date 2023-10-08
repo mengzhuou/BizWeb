@@ -15,22 +15,13 @@ const DisplayClient = () => {
     Axios.get(`http://localhost:3500/clients/${clientId}`)
       .then((response) => {
         console.log(response.data);
-        const {
-          firstName,
-          lastName,
-          birthday,
-          phoneNumber,
-          email,
-          secondaryPhoneNumber,
-        } = response.data.clientFound;
-        const type = typeof birthday;
-        console.log(type);
-        setFirstName(firstName);
-        setLastName(lastName);
-        setBirthday(birthday);
-        setPhoneNumber(phoneNumber);
-        setEmail(email);
-        setSecondaryPhoneNumber(secondaryPhoneNumber);
+        const deserializer = deserialization(response.data.clientFound);
+        setFirstName(deserializer.firstName);
+        setLastName(deserializer.lastName);
+        setBirthday(deserializer.fBirthday);
+        setPhoneNumber(deserializer.fPrimary);
+        setEmail(deserializer.email);
+        setSecondaryPhoneNumber(deserializer.fSecondary);
       })
       .catch((error) => {
         console.log(error);
@@ -47,5 +38,45 @@ const DisplayClient = () => {
       <div>Email: {email}</div>
     </div>
   );
+};
+
+const deserialization = (data) => {
+  let {
+    firstName,
+    lastName,
+    birthday,
+    phoneNumber,
+    secondaryPhoneNumber,
+    email,
+  } = data;
+  // Birthday
+  const birthdayDate = new Date(birthday);
+  const fBirthday = birthdayDate.toLocaleDateString();
+  // Primary Phone Number
+  const fPrimary = formatPhoneNumber(phoneNumber);
+  // Secondary Phone Number
+  let fSecondary = "None";
+  if (secondaryPhoneNumber !== null) {
+    fSecondary = formatPhoneNumber(secondaryPhoneNumber);
+  }
+  const deserializedData = {
+    firstName,
+    lastName,
+    fBirthday,
+    fPrimary,
+    fSecondary,
+    email,
+  };
+
+  return deserializedData;
+};
+const formatPhoneNumber = (number) => {
+  const phoneNumberArray = number.toString().split("");
+  const regionCode = phoneNumberArray[0];
+  const partA = phoneNumberArray.slice(1, 4).join("");
+  const partB = phoneNumberArray.slice(4, 7).join("");
+  const partC = phoneNumberArray.slice(6, 10).join("");
+  const formattedPhoneNumber = `+${regionCode} (${partA}) ${partB}-${partC}`;
+  return formattedPhoneNumber;
 };
 export default DisplayClient;
