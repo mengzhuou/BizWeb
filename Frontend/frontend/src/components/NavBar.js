@@ -1,13 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({update}) {
+  const navigate = useNavigate();
   return (
     <div>
-      <Link to="/"className="topNavBar float-right">
+      <button to="/" onClick={() => {
+        update('null')
+        navigate("/");
+
+      }} className="topNavBar float-right">
         Log Out
-      </Link>
-      <Link to="/menu" className="topNavBar float-right">
+      </button>
+      <Link to="/" className="topNavBar float-right">
         Menu
       </Link>
       <Link to="/" className="topNavBar float-right">

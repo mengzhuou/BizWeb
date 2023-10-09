@@ -79,10 +79,7 @@ function RegisterClient() {
   };
 
   return (
-    <section className="public">
-      <header>
-        <Navbar />
-      </header>
+    
       <main className="public__main">
         <h1>Register Client</h1>
         <div>
@@ -186,7 +183,6 @@ function RegisterClient() {
           </div>
         </div>
       </main>
-    </section>
   );
 }
 

@@ -1,10 +1,21 @@
 const asyncHandler = require("express-async-handler");
 const Client = require("../models/Client");
+const redisClient  = require("../config/redisConn")
 
 const getClients = asyncHandler(async (req, res) => {
   const users = await Client.find();
+  // const redisClient = await initializeClient();
+  if (redisClient.isOpen) {
+    console.log('Redis is connected')
+  } else {
+    console.log('Not connected')
+  }
+  redisClient.set('clients', JSON.stringify(users))
+  redisClient.expire('clients', 10)
   res.status(200).json(users);
 });
+
+
 const createClient = asyncHandler(async (req, res) => {
   let validation = await clientValidation(req.body);
   if (!validation.isValid) {

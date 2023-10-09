@@ -66,42 +66,37 @@ const ExistingClient = () => {
   };
 
   return (
-    <section className="public">
-      <header>
-        <NavBar />
-      </header>
-      <main className="public__main">
-        <div className="p-3">
-          <header className="fmy-2">
-            <h1 className="text-xl font-bold">Look Up Existing Client</h1>
-          </header>
-          <div className="flex flex-col justify-center items-center p-2">
-            <LookupClient
-              nameSearch={nameSearch}
-              birthdaySearch={birthdaySearch}
-              handleSearch={handleSearch}
-              setPhone={setPhone}
-              phone={phone}
-            />
-            <div className="my-10"></div>
+    <main className="public__main">
+      <div className="p-3">
+        <header className="fmy-2">
+          <h1 className="text-xl font-bold">Look Up Existing Client</h1>
+        </header>
+        <div className="flex flex-col justify-center items-center p-2">
+          <LookupClient
+            nameSearch={nameSearch}
+            birthdaySearch={birthdaySearch}
+            handleSearch={handleSearch}
+            setPhone={setPhone}
+            phone={phone}
+          />
+          <div className="my-10"></div>
 
-            {!isUserFound ? (
-              <h1 className="text-red-500 text-xl">User Not Found</h1>
-            ) : (
-              <>
-                <Table clients={currentClients} loading={loading} />
-                <Pagination
-                  currentPage={currentPage}
-                  userPerPage={clientPerPage}
-                  totalUser={filteredClients.length}
-                  paginate={paginate}
-                />
-              </>
-            )}
-          </div>
+          {!isUserFound ? (
+            <h1 className="text-red-500 text-xl">User Not Found</h1>
+          ) : (
+            <>
+              <Table clients={currentClients} loading={loading} />
+              <Pagination
+                currentPage={currentPage}
+                userPerPage={clientPerPage}
+                totalUser={filteredClients.length}
+                paginate={paginate}
+              />
+            </>
+          )}
         </div>
-      </main>
-    </section>
+      </div>
+    </main>
   );
 };
 

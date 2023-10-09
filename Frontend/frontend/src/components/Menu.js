@@ -17,10 +17,7 @@ const Menu = () => {
   };
 
   const content = (
-    <section className="public">
-      <header>
-        <NavBar />
-      </header>
+    
       <main className="public__main">
         <div className="menuButtonContainer">
           <button className="menuButton" onClick={handleRegisterClient}>
@@ -34,7 +31,7 @@ const Menu = () => {
           </button>
         </div>
       </main>
-    </section>
+
   );
   return content;
 };

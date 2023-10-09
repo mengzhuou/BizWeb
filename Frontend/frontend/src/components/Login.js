@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useState } from "react";
 
-const Login = () => {
+const Login = ({update}) => {
     const navigate = useNavigate();
 
 
@@ -11,8 +11,8 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
-        navigate("/menu");
+        update(email);
+        navigate("/");
     }
     const content = (
         <section className="public">

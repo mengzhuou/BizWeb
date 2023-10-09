@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const clientsController = require("../controllers/clientsController");
+const limiter = require('../config/rateLimiter')
+const cacheClients = require("../middleware/cache")
 
 router
   .route("/")
-  .get(clientsController.getClients)
+  .get(limiter, cacheClients, clientsController.getClients)
   .post(clientsController.createClient);
 
 
