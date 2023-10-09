@@ -9,6 +9,8 @@
     "start:backend": "cd backend && npm start"
   },
   "dependencies": {
-    "concurrently": "^8.2.1"
+    "concurrently": "^8.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "validator": "^13.11.0"
   }
 }

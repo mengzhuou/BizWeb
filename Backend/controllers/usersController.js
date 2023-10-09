@@ -1,13 +1,20 @@
 const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const validator = require('validator')
+const jwt = require('jsonwebtoken')
+
+// Creates token for continuous access
+const createToken = (_id) => {
+    return jwt.sign({_id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '3h' }) //how long access will last
+}
 
 // @desc Get all users
 // @route GET /users
 // @access Private
 const getAllUsers = asyncHandler(async (req, res) => {
     // Get all users from MongoDB
-    const users = await User.find().select('-password').lean()
+    const users = await User.find().select().lean()
 
     // If no users 
     if (!users?.length) {
@@ -21,14 +28,27 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @route POST /login
 // @access Public
 const loginUser = asyncHandler(async (req, res) => {
-    // const confirmUsername = await User.findOne({ username }).lean().exec()
-    // const confirmPassword = await User.findOne({ password }).lean().exec()
+    const { username, password } = req.body
 
-    // if (confirmUsername && confirmPassword) {
-    //     res.json({mssg: 'login user'})
-    // }
+    // Confirm data
+    if (!username || !password) {
+        return res.status(400).json({ message: 'All fields are required' })
+    }
 
-    res.json({mssg: 'login user'})
+    // Confirm login
+    const user = await User.findOne({ username }).lean().exec()
+    if (!user) {        
+        return res.status(400).json({ message: 'Invalid Username or Password' })}
+    const match = await bcrypt.compare(password, user.password)
+    if (!match) {
+        return res.status(400).json({ message: 'Invalid Username or Password' })}
+
+    //Login to console
+    res.status(201).json({mssg: 'User has been logged in'})
+        
+    //Create token for continuous access
+    const token = createToken(user._id)
+
 })
 
 // @desc Create new user
@@ -49,6 +69,14 @@ const createNewUser = asyncHandler(async (req, res) => {
         return res.status(409).json({ message: 'Duplicate username' })
     }
 
+    // Check if user information fits standards
+    if (!validator.isEmail(username)) {
+        return res.status(400).json({ message: 'Email is not valid' })
+    }
+    if (!validator.isStrongPassword(password)) {
+        return res.status(400).json({ message: 'Password is not strong enough' })
+    }
+
     // Hash password 
     const hashedPwd = await bcrypt.hash(password, 10) // salt rounds
 
@@ -56,6 +84,9 @@ const createNewUser = asyncHandler(async (req, res) => {
 
     // Create and store new user 
     const user = await User.create(userObject)
+
+    //Create token for continuous access
+    const token = createToken(user._id)
 
     if (user) { //created 
         res.status(201).json({ message: `New user ${username} created` })
