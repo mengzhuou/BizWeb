@@ -9,6 +9,7 @@
     "start:backend": "cd backend && npm start"
   },
   "dependencies": {
-    "concurrently": "^8.2.1"
+    "concurrently": "^8.2.1",
+    "js-cookie": "^3.0.5"
   }
 }
