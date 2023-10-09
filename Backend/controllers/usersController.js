@@ -17,6 +17,20 @@ const getAllUsers = asyncHandler(async (req, res) => {
     res.json(users)
 })
 
+// @desc Login to existing user
+// @route POST /login
+// @access Public
+const loginUser = asyncHandler(async (req, res) => {
+    // const confirmUsername = await User.findOne({ username }).lean().exec()
+    // const confirmPassword = await User.findOne({ password }).lean().exec()
+
+    // if (confirmUsername && confirmPassword) {
+    //     res.json({mssg: 'login user'})
+    // }
+
+    res.json({mssg: 'login user'})
+})
+
 // @desc Create new user
 // @route POST /users
 // @access Private
@@ -115,6 +129,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 module.exports = {
     getAllUsers,
+    loginUser,
     createNewUser,
     updateUser,
     deleteUser
