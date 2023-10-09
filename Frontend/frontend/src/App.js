@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import useCookie from "./customHooks/useCookies";
+
 import {
   Layout,
   Login,
@@ -9,15 +11,21 @@ import {
 } from "./components";
 
 function App() {
+
+  const [value, updateCookie, deleteCookie] = useCookie('user', null)
+
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Login />} />
-        <Route path="menu" element={<Menu />} />
+      {value !== 'null' ? 
+      <Route path="/" element={<Layout updateCookie={updateCookie} />}>
+        <Route index element={<Menu />} />
         <Route path="registerClient" element={<RegisterClient />} />
         <Route path="existingClient" element={<ExistingClient />} />
         <Route path="directProject" element={<DirectProject />} />
-      </Route>
+      </Route> : 
+      <Route path="/" element={<Layout updateCookie={updateCookie} />}>
+        <Route index element={<Login updateCookie={updateCookie}/>} />
+      </Route>}
     </Routes>
   );
 }

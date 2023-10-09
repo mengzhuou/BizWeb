@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom'
 import NavBar from './NavBar'
 
-const Layout = () => {
+const Layout = ({updateCookie}) => {
     return (
         <section className="public">
         <header>
-          <NavBar />
+          <NavBar updateCookie={updateCookie}/>
         </header>
         <main className="public__main">
           <Outlet />

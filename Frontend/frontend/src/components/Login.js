@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import React, { useState } from "react";
 
-const Login = () => {
+const Login = ({updateCookie}) => {
     const navigate = useNavigate();
 
 
@@ -11,8 +11,8 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
-        navigate("/menu");
+        updateCookie(email)
+        navigate("/");
     }
     const content = (
         <>

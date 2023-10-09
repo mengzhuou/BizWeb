@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({updateCookie}) {
   return (
     <div>
-      <Link to="/"className="topNavBar float-right">
+      <Link to="/" onClick={() => updateCookie('null')}className="topNavBar float-right">
         Log Out
       </Link>
-      <Link to="/menu" className="topNavBar float-right">
+      <Link to="/" className="topNavBar float-right">
         Menu
       </Link>
       <Link to="/" className="topNavBar float-right">
