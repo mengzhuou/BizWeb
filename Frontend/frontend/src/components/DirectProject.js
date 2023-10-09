@@ -1,7 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import "./Menu.css";
-import NavBar from "./NavBar";
 
 const DirectProject = () => {
   const getInitialState = () => {
@@ -20,11 +19,7 @@ const DirectProject = () => {
     navigate("/directProject/" + value);
   };
   const content = (
-    <section className="public">
-      <header>
-        <NavBar />
-      </header>
-      <main className="public__main">
+    <>
         <h1>Direct Project</h1>
         <div className="menuButtonContainer">
           <h1>Select a Project</h1>
@@ -37,8 +32,7 @@ const DirectProject = () => {
             Submit
           </button>
         </div>
-      </main>
-    </section>
+        </>
   );
   return content;
 };
