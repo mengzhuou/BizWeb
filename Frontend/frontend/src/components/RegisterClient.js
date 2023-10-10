@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import GenderDropdown from "./GenderDropdown";
+import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "./NavBar";
 
 function RegisterClient() {
   const [firstName, setFirstName] = useState("");
@@ -79,11 +77,7 @@ function RegisterClient() {
   };
 
   return (
-    <section className="public">
-      <header>
-        <Navbar />
-      </header>
-      <main className="public__main">
+    <>
         <h1>Register Client</h1>
         <div>
           <div>
@@ -185,8 +179,7 @@ function RegisterClient() {
             <ToastContainer />
           </div>
         </div>
-      </main>
-    </section>
+        </>
   );
 }
 
