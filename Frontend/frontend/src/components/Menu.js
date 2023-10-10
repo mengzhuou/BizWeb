@@ -1,6 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Menu.css";
-import NavBar from "./NavBar";
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -17,11 +16,7 @@ const Menu = () => {
   };
 
   const content = (
-    <section className="public">
-      <header>
-        <NavBar />
-      </header>
-      <main className="public__main">
+    
         <div className="menuButtonContainer">
           <button className="menuButton" onClick={handleRegisterClient}>
             Register a New Client
@@ -33,8 +28,7 @@ const Menu = () => {
             Direct Project
           </button>
         </div>
-      </main>
-    </section>
+    
   );
   return content;
 };
