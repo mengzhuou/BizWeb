@@ -16,7 +16,7 @@ const ExistingClient = () => {
   const birthdaySearch = useRef(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3500/clients").then((res) => {
+    axios.get("/clients").then((res) => {
       setClients(res.data);
       setFilteredClients(res.data);
       setLoading(false);

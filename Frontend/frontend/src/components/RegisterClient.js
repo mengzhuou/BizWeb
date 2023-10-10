@@ -48,7 +48,7 @@ function RegisterClient() {
       secondaryPhoneNumber,
     };
 
-    Axios.post("http://localhost:3500/clients", clientData)
+    Axios.post("/clients", clientData)
       .then((response) => {
         toast.success("Successfully added to the database");
         console.log("Successfully added to the database");
