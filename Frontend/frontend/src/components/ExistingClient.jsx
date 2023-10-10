@@ -18,7 +18,7 @@ const ExistingClient = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3500/clients")
+      .get("/clients")
       .then((res) => {
         setClients(res.data);
         setFilteredClients(res.data);

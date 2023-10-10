@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
 import {
   Layout,
   Login,
@@ -8,6 +9,8 @@ import {
   DisplayClient,
   ExistingClient,
 } from "./components";
+
+axios.defaults.baseURL = 'http://localhost:3500';
 
 function App() {
   return (
