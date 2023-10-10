@@ -12,15 +12,23 @@ const ExistingClient = () => {
   const [clientPerPage] = useState(5);
   const [isUserFound, setIsUserFound] = useState(true);
   const [phone, setPhone] = useState("");
+  const [err, setErr] = useState(null);
   const nameSearch = useRef(null);
   const birthdaySearch = useRef(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3500/clients").then((res) => {
-      setClients(res.data);
-      setFilteredClients(res.data);
-      setLoading(false);
-    });
+    axios
+      .get("http://localhost:3500/clients")
+      .then((res) => {
+        setClients(res.data);
+        setFilteredClients(res.data);
+        setLoading(false);
+        setErr(null);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setErr(err.response.data);
+      });
   }, []);
 
   const indexOfLastClient = currentPage * clientPerPage;
@@ -82,7 +90,7 @@ const ExistingClient = () => {
           <h1 className="text-red-500 text-xl">User Not Found</h1>
         ) : (
           <>
-            <Table clients={currentClients} loading={loading} />
+            <Table clients={currentClients} loading={loading} err={err} />
             <Pagination
               currentPage={currentPage}
               userPerPage={clientPerPage}
