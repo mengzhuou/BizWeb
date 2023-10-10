@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import React, { useState } from "react";
 
 const Login = () => {
@@ -15,8 +15,7 @@ const Login = () => {
         navigate("/menu");
     }
     const content = (
-        <section className="public">
-            <main className="public__main">
+        <>
                 <h1>Login</h1>
                 <form className="login-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">email</label>
@@ -25,8 +24,7 @@ const Login = () => {
                 <input value={pass} type="password" onChange={(e) => setPass(e.target.value)} placeholder="********" id="password" name="password" />
                 <button type="submit">Log In</button>
             </form>
-            </main>
-        </section>
+            </>
         );
         return content;
 };
