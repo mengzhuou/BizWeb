@@ -1,5 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import React, { useState } from "react";
+import { useLogin } from "../hooks/useLogin"
 
 const Login = () => {
     const navigate = useNavigate();
@@ -7,11 +8,13 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const {login, error, isLoading} = useLogin()
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(email);
+        await login(email, pass)
         navigate("/menu");
     }
     const content = (
