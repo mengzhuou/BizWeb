@@ -13,17 +13,28 @@ function RegisterClient() {
   const [birthday, setBirthday] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === "firstName") {
       setFirstName(value);
+      if (value === "") {
+        console.log("First name is required");
+      }
     }
     if (id === "lastName") {
       setLastName(value);
     }
     if (id === "email") {
       setEmail(value);
+      // Email format validation
+      const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+      if (!emailPattern.test(value)) {
+        setEmailError("Invalid email format");
+      } else {
+        setEmailError("");
+      }
     }
     if (id === "birthday") {
       setBirthday(value);
@@ -38,6 +49,12 @@ function RegisterClient() {
 
   const handleSubmit = () => {
     // Create an object to hold the client data
+
+    if (emailError) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
     const clientData = {
       firstName,
       lastName,
@@ -85,7 +102,7 @@ function RegisterClient() {
       </header>
       <main className="public__main">
         <h1>Register Client</h1>
-        <div>
+        <div className="text-black">
           <div>
             <div>
               <label htmlFor="firstName">First Name: </label>
