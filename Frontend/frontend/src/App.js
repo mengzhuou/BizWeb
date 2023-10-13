@@ -9,7 +9,7 @@ import {
   ExistingClient,
 } from "./components";
 
-import Login from './features/Login';
+import Login from './features/auth/Login';
 
 
 axios.defaults.baseURL = 'http://localhost:3500';
