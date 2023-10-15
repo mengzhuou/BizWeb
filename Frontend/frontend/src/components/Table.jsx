@@ -1,10 +1,13 @@
 import React from "react";
 
-const Table = ({ clients, loading }) => {
+const Table = ({ clients, loading, err }) => {
   if (loading) {
     return <h2>Loading...</h2>;
   }
-
+  if (err) {
+    console.log(err);
+    return <h2>{err}</h2>;
+  }
   const formatPhoneNumber = (phoneNumber) => {
     let strNum = String(phoneNumber);
 
@@ -38,14 +41,7 @@ const Table = ({ clients, loading }) => {
       </thead>
       <tbody className="text-lg">
         {clients.map(
-          ({
-            _id,
-            firstName,
-            lastName,
-            email,
-            birthday,
-            phoneNumber,
-          }) => (
+          ({ _id, firstName, lastName, email, birthday, phoneNumber }) => (
             <tr key={_id}>
               <td>{firstName}</td>
               <td>{lastName}</td>
