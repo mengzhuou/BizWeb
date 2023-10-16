@@ -3,13 +3,12 @@ import axios from "axios";
 import {
   Layout,
   Menu,
+  Login,
   RegisterClient,
   DirectProject,
   DisplayClient,
   ExistingClient,
 } from "./components";
-
-import Login from './features/auth/Login';
 
 
 axios.defaults.baseURL = 'http://localhost:3500';
