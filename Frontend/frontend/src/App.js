@@ -4,7 +4,9 @@ import {
   Layout,
   Menu,
   Login,
+  ManagementMenu,
   RegisterClient,
+  RegisterEmployee,
   DirectProject,
   DisplayClient,
   ExistingClient,
@@ -19,6 +21,8 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Login />} />
         <Route path="menu" element={<Menu />} />
+        <Route path="managementMenu" element={<ManagementMenu />} />
+        <Route path="registerEmployee" element={<RegisterEmployee />} />
         <Route path="registerClient" element={<RegisterClient />} />
         <Route path="existingClient" element={<ExistingClient />} />
         <Route path="directProject" element={<DirectProject />} />
