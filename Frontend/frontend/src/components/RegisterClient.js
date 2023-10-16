@@ -14,36 +14,60 @@ function RegisterClient() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [requiredError, setRequiredError] = useState("");
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === "firstName") {
-      setFirstName(value);
       if (value === "") {
+        setRequiredError("First name is required");
         console.log("First name is required");
+      } else {
+        setFirstName(value);
+        setRequiredError("");
       }
     }
     if (id === "lastName") {
-      setLastName(value);
+      if (value === "") {
+        setRequiredError("First name is required");
+      } else {
+        setLastName(value);
+        setRequiredError("");
+      }
     }
     if (id === "email") {
-      setEmail(value);
       // Email format validation
       const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
       if (!emailPattern.test(value)) {
         setEmailError("Invalid email format");
       } else {
+        setEmail(value);
         setEmailError("");
       }
     }
     if (id === "birthday") {
-      setBirthday(value);
+      if (value === "") {
+        setRequiredError("First name is required");
+      } else {
+        setBirthday(value);
+        setRequiredError("");
+      }
     }
     if (id === "phoneNumber") {
-      setPhoneNumber(value);
+      if (value === "") {
+        setRequiredError("First name is required");
+      } else {
+        setPhoneNumber(value);
+        setRequiredError("");
+      }
     }
     if (id === "gender") {
-      setGender(value);
+      if (value === "") {
+        setRequiredError("First name is required");
+      } else {
+        setGender(value);
+        setRequiredError("");
+      }
     }
   };
 
@@ -52,6 +76,10 @@ function RegisterClient() {
 
     if (emailError) {
       alert("Please enter a valid email address.");
+      return;
+    } else if (requiredError) {
+      console.log("error found!");
+      alert("Please fill out all required fields.");
       return;
     }
 
@@ -69,6 +97,9 @@ function RegisterClient() {
         console.log("Client created successfully", response.data);
       })
       .catch((error) => {
+        if (error.response === undefined) {
+          console.error("Server is not running");
+        }
         if (error.response.status === 400) {
           if (error.response.data.message === "All fields are required") {
             console.log(error.response.data.message);
