@@ -14,27 +14,17 @@ function RegisterClient() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [requiredError, setRequiredError] = useState("");
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === "firstName") {
-      if (value === "") {
-        setRequiredError("First name is required");
-        console.log("First name is required");
-      } else {
-        setFirstName(value);
-        setRequiredError("");
-      }
+      setFirstName(value);
     }
+
     if (id === "lastName") {
-      if (value === "") {
-        setRequiredError("First name is required");
-      } else {
-        setLastName(value);
-        setRequiredError("");
-      }
+      setLastName(value);
     }
+
     if (id === "email") {
       // Email format validation
       const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
@@ -46,28 +36,13 @@ function RegisterClient() {
       }
     }
     if (id === "birthday") {
-      if (value === "") {
-        setRequiredError("First name is required");
-      } else {
-        setBirthday(value);
-        setRequiredError("");
-      }
+      setBirthday(value);
     }
     if (id === "phoneNumber") {
-      if (value === "") {
-        setRequiredError("First name is required");
-      } else {
-        setPhoneNumber(value);
-        setRequiredError("");
-      }
+      setPhoneNumber(value);
     }
     if (id === "gender") {
-      if (value === "") {
-        setRequiredError("First name is required");
-      } else {
-        setGender(value);
-        setRequiredError("");
-      }
+      setGender(value);
     }
   };
 
@@ -77,9 +52,22 @@ function RegisterClient() {
     if (emailError) {
       alert("Please enter a valid email address.");
       return;
-    } else if (requiredError) {
-      console.log("error found!");
-      alert("Please fill out all required fields.");
+    }
+
+    if (!firstName.trim()) {
+      alert("First name cannot be blank.");
+      return;
+    } else if (!lastName.trim()) {
+      alert("Last name cannot be blank.");
+      return;
+    } else if (!birthday.trim()) {
+      alert("Birthday cannot be blank.");
+      return;
+    } else if (!phoneNumber.trim()) {
+      alert("Phone number cannot be blank.");
+      return;
+    } else if (!gender.trim()) {
+      alert("Gender cannot be blank");
       return;
     }
 
