@@ -18,12 +18,13 @@ const getClient = async (req, res) => {
   try {
     // Check if data is in Redis cache
     const cachedData = await redisClient.get(`clientData:${clientId}`);
+    console.log(cachedData);
     if (cachedData) {
       const data = JSON.parse(cachedData);
-      console.log("found in cache");
+      console.log("hit");
       res.status(200).json({ clientFound: data });
     } else {
-      console.log("not found in cache");
+      console.log("miss");
       const clientFound = await Client.findById(clientId).lean().exec();
 
       if (!clientFound) {
@@ -32,10 +33,9 @@ const getClient = async (req, res) => {
       console.log("will cache this data for future use!!!!");
       await redisClient.set(
         `clientData:${clientId}`,
-        JSON.stringify(clientFound),
-        "EX",
-        60
+        JSON.stringify(clientFound)
       );
+      await redisClient.expire(`clientData:${clientId}`, 5);
 
       res.status(200).json({ clientFound });
     }
@@ -48,7 +48,6 @@ const getClient = async (req, res) => {
 // @desc Create a new client
 // @route POST /client
 // @access Private
-
 const createClient = asyncHandler(async (req, res) => {
   let validation = await clientValidation(req.body);
   if (!validation.isValid) {
@@ -57,15 +56,38 @@ const createClient = asyncHandler(async (req, res) => {
   const newClient = new Client(req.body);
 
   const savedClient = await newClient.save();
+
+  console.log("set");
+
   await redisClient.set(
     `clientData:${savedClient._id}`,
-    JSON.stringify(savedClient),
-    "EX",
-    60
+    JSON.stringify(savedClient)
   );
+  await redisClient.expire(`clientData:${savedClient._id}`, 5);
+
   res.status(201).json(savedClient);
 });
 
+// @desc Delete a client
+// @route DELETE /client
+// @access Private
+const deleteClient = asyncHandler(async (req, res) => {
+  const clientId = req.params.id;
+  const resp = await Client.deleteOne({ _id: clientId });
+  if (resp.deletedCount === 0) {
+    return res
+      .status(404)
+      .json({ message: "No clients matched the provided ID" });
+  } else {
+    console.log("del");
+    await redisClient.del(`clientData:${clientId}`);
+    return res
+      .status(200)
+      .json({ message: `Deleted ${clientId} successfully` });
+  }
+});
+
+// Utils
 const clientValidation = async (data) => {
   const {
     firstName,
@@ -150,21 +172,4 @@ const clientValidation = async (data) => {
   }
   return { isValid: true, message: "Inputs are valid." };
 };
-// @desc Delete a client
-// @route DELETE /client
-// @access Private
-const deleteClient = asyncHandler(async (req, res) => {
-  const clientId = req.params.id;
-  const resp = await Client.deleteOne({ _id: clientId });
-  if (resp.deletedCount === 0) {
-    return res
-      .status(404)
-      .json({ message: "No clients matched the provided ID" });
-  } else {
-    await redisClient.del(`clientData:${clientId}`);
-    return res
-      .status(200)
-      .json({ message: `Deleted ${clientId} successfully` });
-  }
-});
 module.exports = { getClient, getClients, createClient, deleteClient };

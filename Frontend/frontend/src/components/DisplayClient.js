@@ -10,11 +10,6 @@ const DisplayClient = () => {
   const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const { clientId } = useParams();
-  // async function fetchApiData(species) {
-  //   const apiResponse = await Axios.get(`http://localhost:3500/clients/${clientId}`)
-  //   console.log("Request sent to the API");
-  //   return apiResponse.data;
-  // }
 
   useEffect(() => {
     Axios.get(`http://localhost:3500/clients/${clientId}`)
