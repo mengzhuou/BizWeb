@@ -48,6 +48,7 @@ const getClient = async (req, res) => {
 // @desc Create a new client
 // @route POST /client
 // @access Private
+
 const createClient = asyncHandler(async (req, res) => {
   let validation = await clientValidation(req.body);
   if (!validation.isValid) {
@@ -60,7 +61,7 @@ const createClient = asyncHandler(async (req, res) => {
     `clientData:${savedClient._id}`,
     JSON.stringify(savedClient),
     "EX",
-    3600 // Set an appropriate cache expiration time
+    60
   );
   res.status(201).json(savedClient);
 });
@@ -149,7 +150,9 @@ const clientValidation = async (data) => {
   }
   return { isValid: true, message: "Inputs are valid." };
 };
-
+// @desc Delete a client
+// @route DELETE /client
+// @access Private
 const deleteClient = asyncHandler(async (req, res) => {
   const clientId = req.params.id;
   const resp = await Client.deleteOne({ _id: clientId });
