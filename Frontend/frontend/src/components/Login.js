@@ -59,45 +59,43 @@ const Login = () => {
     const content = (
         <section className='public'>
         <header>
-            <h1>Login</h1>
+            <h1 className="text-xl font-bold">Login</h1>
         </header>
-        <main className='login'>
-            <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
-            <form className="login-form" onSubmit={handleSubmit}>
-                <div className="menuButtonContainer">
-                    <label htmlFor="username">Username: </label>
-                    <input 
-                        className='form_input'
-                        type='text'
-                        id='username'
-                        ref={userRef}
-                        value={username}
-                        onChange={handleUserInput}
-                        autoComplete="off"
-                        required
-                        placeholder="username
-                        "
-                        name="username" 
+        <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
+        <form className="login-form" onSubmit={handleSubmit}>
+            <div className="menuButtonContainer">
+                <label htmlFor="username">Username: </label>
+                <input 
+                    className='form_input'
+                    type='text'
+                    id='username'
+                    ref={userRef}
+                    value={username}
+                    onChange={handleUserInput}
+                    autoComplete="off"
+                    required
+                    placeholder="username
+                    "
+                    name="username" 
+                />
+                <br/>
+                <label htmlFor="password">Password: </label>
+                <input 
+                    className='form_input'
+                    type='password'
+                    id='password'
+                    onChange = {handlePwdInput}
+                    value={password}
+                    required
+                    placeholder="********"
+                    name="password"
                     />
-                    <br/>
-                    <label htmlFor="password">Password: </label>
-                    <input 
-                        className='form_input'
-                        type='password'
-                        id='password'
-                        onChange = {handlePwdInput}
-                        value={password}
-                        required
-                        placeholder="********"
-                        name="password"
-                        />
-                    <br/>
-                    <button className="menuButton">
-                        Sign In
-                    </button>
-                </div>
-            </form>
-        </main>
+                <br/>
+                <button className="menuButton">
+                    Sign In
+                </button>
+            </div>
+        </form>
     </section>
         );
         return content;
