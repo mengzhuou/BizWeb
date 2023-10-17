@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Client = require("../models/Client");
+const redisClient = require("../config/apiCache");
 
 // @desc Get all clients
 // @route GET /client
@@ -8,18 +9,45 @@ const getClients = asyncHandler(async (req, res) => {
   const users = await Client.find();
   res.status(200).json(users);
 });
+
 // @desc Get a client
 // @route GET /client/:clientId
 // @access Private
-const getClient = asyncHandler(async (req, res) => {
+const getClient = async (req, res) => {
   const clientId = req.params.clientId;
-  const clientFound = await Client.findById(clientId).lean().exec();
-  if (!clientFound) {
-    return res.status(404).json({ message: "Client not Found" });
-  }
+  try {
+    // Check if data is in Redis cache
+    const cachedData = await redisClient.get(`clientData:${clientId}`);
 
-  res.status(200).json({ clientFound });
-});
+    if (cachedData) {
+      // If data is in the cache, use it
+      const data = JSON.parse(cachedData);
+      console.log("found in cache");
+      res.status(200).json({ clientFound: data });
+    } else {
+      // If data is not in the cache, fetch it from the database
+      console.log("not found in cache");
+      const clientFound = await Client.findById(clientId).lean().exec();
+
+      if (!clientFound) {
+        return res.status(404).json({ message: "Client not found" });
+      }
+      console.log("will cache this for future use!!!!");
+      // Cache the fetched data in Redis for future use
+      await redisClient.set(
+        `clientData:${clientId}`,
+        JSON.stringify(clientFound),
+        "EX",
+        60
+      );
+
+      res.status(200).json({ clientFound });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 // @desc Create a new client
 // @route POST /client

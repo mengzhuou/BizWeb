@@ -9,6 +9,7 @@ const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const connectDB = require("./config/dbConn");
 const mongoose = require("mongoose");
+const redisClient = require("./config/apiCache");
 
 const PORT = process.env.PORT || 3500;
 
@@ -46,6 +47,12 @@ app.all("*", (req, res) => {
 
 // Error handling
 app.use(errorHandler);
+
+// API cache
+app.use((req, res, next) => {
+  req.clientCache = redisClient;
+  next();
+});
 
 // Start the server
 mongoose.connection.once("open", () => {
