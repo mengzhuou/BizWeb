@@ -31,6 +31,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/root"));
 app.use("/users", require("./routes/userRoutes"));
 app.use("/clients", require("./routes/clientRoutes"));
+app.use('/auth', require('./routes/authRoutes'))
 
 // 404 Not Found
 app.all("*", (req, res) => {

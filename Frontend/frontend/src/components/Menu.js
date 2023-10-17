@@ -16,19 +16,21 @@ const Menu = () => {
   };
 
   const content = (
-    
-        <div className="menuButtonContainer">
-          <button className="menuButton" onClick={handleRegisterClient}>
-            Register a New Client
-          </button>
-          <button className="menuButton" onClick={handleExistingClient}>
-            Look Up an Existing Client
-          </button>
-          <button className="menuButton" onClick={handleDirectProject}>
-            Direct Project
-          </button>
-        </div>
-    
+    <>
+      <h1 className="text-xl font-bold">Menu</h1>
+      <div className="menuButtonContainer">
+        
+        <button className="menuButton" onClick={handleRegisterClient}>
+          Register a New Client
+        </button>
+        <button className="menuButton" onClick={handleExistingClient}>
+          Look Up an Existing Client
+        </button>
+        <button className="menuButton" onClick={handleDirectProject}>
+          Direct Project
+        </button>
+      </div>
+    </>
   );
   return content;
 };
