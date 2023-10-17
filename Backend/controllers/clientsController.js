@@ -18,22 +18,18 @@ const getClient = async (req, res) => {
   try {
     // Check if data is in Redis cache
     const cachedData = await redisClient.get(`clientData:${clientId}`);
-
     if (cachedData) {
-      // If data is in the cache, use it
       const data = JSON.parse(cachedData);
       console.log("found in cache");
       res.status(200).json({ clientFound: data });
     } else {
-      // If data is not in the cache, fetch it from the database
       console.log("not found in cache");
       const clientFound = await Client.findById(clientId).lean().exec();
 
       if (!clientFound) {
         return res.status(404).json({ message: "Client not found" });
       }
-      console.log("will cache this for future use!!!!");
-      // Cache the fetched data in Redis for future use
+      console.log("will cache this data for future use!!!!");
       await redisClient.set(
         `clientData:${clientId}`,
         JSON.stringify(clientFound),
@@ -60,6 +56,12 @@ const createClient = asyncHandler(async (req, res) => {
   const newClient = new Client(req.body);
 
   const savedClient = await newClient.save();
+  await redisClient.set(
+    `clientData:${savedClient._id}`,
+    JSON.stringify(savedClient),
+    "EX",
+    3600 // Set an appropriate cache expiration time
+  );
   res.status(201).json(savedClient);
 });
 
@@ -156,9 +158,10 @@ const deleteClient = asyncHandler(async (req, res) => {
       .status(404)
       .json({ message: "No clients matched the provided ID" });
   } else {
+    await redisClient.del(`clientData:${clientId}`);
     return res
       .status(200)
-      .json({ message: `Deleted ${clientId} successfulyy` });
+      .json({ message: `Deleted ${clientId} successfully` });
   }
 });
 module.exports = { getClient, getClients, createClient, deleteClient };
