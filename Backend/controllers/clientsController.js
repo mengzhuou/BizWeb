@@ -35,7 +35,7 @@ const getClient = async (req, res) => {
         `clientData:${clientId}`,
         JSON.stringify(clientFound)
       );
-      await redisClient.expire(`clientData:${clientId}`, 5);
+      await redisClient.expire(`clientData:${clientId}`, 90);
 
       res.status(200).json({ clientFound });
     }
@@ -63,7 +63,7 @@ const createClient = asyncHandler(async (req, res) => {
     `clientData:${savedClient._id}`,
     JSON.stringify(savedClient)
   );
-  await redisClient.expire(`clientData:${savedClient._id}`, 5);
+  await redisClient.expire(`clientData:${savedClient._id}`, 90);
 
   res.status(201).json(savedClient);
 });
