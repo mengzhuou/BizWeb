@@ -14,6 +14,7 @@ function RegisterClient() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [presenceError, setPresenceError] = useState("");
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -50,25 +51,25 @@ function RegisterClient() {
     // Create an object to hold the client data
 
     if (emailError) {
-      alert("Please enter a valid email address.");
+      setPresenceError("Email format is invalid");
       return;
-    }
-
-    if (!firstName.trim()) {
-      alert("First name cannot be blank.");
+    } else if (!firstName.trim()) {
+      setPresenceError("First name cannot be blank.");
       return;
     } else if (!lastName.trim()) {
-      alert("Last name cannot be blank.");
+      setPresenceError("Last name cannot be blank.");
       return;
     } else if (!birthday.trim()) {
-      alert("Birthday cannot be blank.");
+      setPresenceError("Birthday cannot be blank.");
       return;
     } else if (!phoneNumber.trim()) {
-      alert("Phone number cannot be blank.");
+      setPresenceError("Phone number cannot be blank.");
       return;
     } else if (!gender.trim()) {
-      alert("Gender cannot be blank");
+      setPresenceError("Gender cannot be blank");
       return;
+    } else {
+      setPresenceError("");
     }
 
     const clientData = {
@@ -189,6 +190,8 @@ function RegisterClient() {
               Register
             </button>
           </div>
+          <p style={{ color: "red" }}>{presenceError}</p>{" "}
+          {/* Display error message */}
         </div>
       </main>
     </section>
