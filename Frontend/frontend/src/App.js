@@ -10,8 +10,9 @@ import {
   DirectProject,
   DisplayClient,
   ExistingClient,
-  PersistLogin,
 } from "./components";
+
+import PersistLogin from "./components/PersistLogin";
 
 
 axios.defaults.baseURL = 'http://localhost:3500';
