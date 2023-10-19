@@ -31,12 +31,16 @@ const ExistingClient = () => {
       });
   }, []);
 
-  const indexOfLastClient = currentPage * clientPerPage;
-  const indexOfFirstClient = indexOfLastClient - clientPerPage;
-  const currentClients = filteredClients.slice(
-    indexOfFirstClient,
-    indexOfLastClient
-  );
+  let currentClients = [];
+  console.log(filteredClients);
+  if (filteredClients.length !== 0) {
+    const indexOfLastClient = currentPage * clientPerPage;
+    const indexOfFirstClient = indexOfLastClient - clientPerPage;
+    currentClients = filteredClients.slice(
+      indexOfFirstClient,
+      indexOfLastClient
+    );
+  }
 
   const handleSearch = (e) => {
     e.preventDefault();
