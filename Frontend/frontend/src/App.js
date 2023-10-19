@@ -10,6 +10,7 @@ import {
   DirectProject,
   DisplayClient,
   ExistingClient,
+  PersistLogin,
 } from "./components";
 
 
@@ -20,13 +21,15 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Login />} />
-        <Route path="menu" element={<Menu />} />
-        <Route path="managementMenu" element={<ManagementMenu />} />
-        <Route path="registerEmployee" element={<RegisterEmployee />} />
-        <Route path="registerClient" element={<RegisterClient />} />
-        <Route path="existingClient" element={<ExistingClient />} />
-        <Route path="directProject" element={<DirectProject />} />
-        <Route path="displayClient/:clientId" element={<DisplayClient />} />
+        <Route element={<PersistLogin />}>
+          <Route path="menu" element={<Menu />} />
+          <Route path="managementMenu" element={<ManagementMenu />} />
+          <Route path="registerEmployee" element={<RegisterEmployee />} />
+          <Route path="registerClient" element={<RegisterClient />} />
+          <Route path="existingClient" element={<ExistingClient />} />
+          <Route path="directProject" element={<DirectProject />} />
+          <Route path="displayClient/:clientId" element={<DisplayClient />} />
+          </Route>
       </Route>
     </Routes>
   );
