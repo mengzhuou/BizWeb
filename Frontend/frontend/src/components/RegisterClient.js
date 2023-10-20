@@ -42,14 +42,14 @@ function RegisterClient() {
 
   const handleSubmit = () => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-    if (!emailPattern.test(email)) {
-      setPresenceError("Invalid email format");
-      return;
-    } else if (!firstName.trim()) {
+    if (!firstName.trim()) {
       setPresenceError("First name cannot be blank.");
       return;
     } else if (!lastName.trim()) {
       setPresenceError("Last name cannot be blank.");
+      return;
+    } else if (!emailPattern.test(email)) {
+      setPresenceError("Invalid email format");
       return;
     } else if (!birthday.trim()) {
       setPresenceError("Birthday cannot be blank.");
@@ -198,7 +198,6 @@ function RegisterClient() {
           <ToastContainer />
         </div>
         <p style={{ color: "red" }}>{presenceError}</p>{" "}
-      </div>
     </>
   );
 }
