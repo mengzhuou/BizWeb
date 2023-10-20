@@ -102,8 +102,7 @@ function RegisterClient() {
 
   return (
     <>
-      <h1>Register Client</h1>
-      <div>
+      <h1 className="text-xl font-bold">Register Client</h1>
         <div>
           <div>
             <label htmlFor="firstName">First Name: </label>

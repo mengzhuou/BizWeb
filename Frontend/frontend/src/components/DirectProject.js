@@ -20,7 +20,8 @@ const DirectProject = () => {
   };
   const content = (
     <>
-        <h1>Direct Project</h1>
+        <h1 className="text-xl font-bold">Direct Project</h1>
+
         <div className="menuButtonContainer">
           <h1>Select a Project</h1>
           <select className="menuButton" value={value} onChange={handleChange}>

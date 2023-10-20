@@ -19,21 +19,23 @@ const ManagementMenu = () => {
   };
 
   const content = (
-        <div className="menuButtonContainer">
-          <button className="menuButton" onClick={handleRegisterEmployee}>
-            Register a New Employee
-          </button>
-          <button className="menuButton" onClick={handleExistingEmployee}>
-            Manage Employees
-          </button>
-          <button className="menuButton" onClick={handleExistingClient}>
-            Manage Clients
-          </button>
-          <button className="menuButton" onClick={handleFinancialReport}>
-            Financial Reports
-          </button>
-        </div>
-    
+        <>
+          <h1 className="text-xl font-bold">Management Menu</h1>
+          <div className="menuButtonContainer">
+            <button className="menuButton" onClick={handleRegisterEmployee}>
+              Register a New Employee
+            </button>
+            <button className="menuButton" onClick={handleExistingEmployee}>
+              Manage Employees
+            </button>
+            <button className="menuButton" onClick={handleExistingClient}>
+              Manage Clients
+            </button>
+            <button className="menuButton" onClick={handleFinancialReport}>
+              Financial Reports
+            </button>
+          </div>
+        </>
   );
   return content;
 };
