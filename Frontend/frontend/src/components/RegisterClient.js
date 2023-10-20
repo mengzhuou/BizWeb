@@ -14,7 +14,6 @@ function RegisterClient() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const navigate = useNavigate();
-  const [emailError, setEmailError] = useState("");
   const [presenceError, setPresenceError] = useState("");
 
   const handleInputChange = (e) => {
@@ -28,14 +27,7 @@ function RegisterClient() {
     }
 
     if (id === "email") {
-      // Email format validation
-      // const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-      // if (!emailPattern.test(value)) {
-      //   setEmailError("Invalid email format");
-      // } else {
       setEmail(value);
-      // setEmailError("");
-      // }
     }
     if (id === "birthday") {
       setBirthday(value);
@@ -49,7 +41,6 @@ function RegisterClient() {
   };
 
   const handleSubmit = () => {
-    // Create an object to hold the client data
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     if (!emailPattern.test(email)) {
       setPresenceError("Invalid email format");
