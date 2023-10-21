@@ -10,10 +10,6 @@ const ManagementMenu = () => {
     navigate("/manageEmployee");
   };
 
-  const handleExistingClient = () => {
-    navigate("/manageClient");
-  };
-
   const handleFinancialReport = () => {
     navigate("/financialReport");
   };
@@ -27,9 +23,6 @@ const ManagementMenu = () => {
             </button>
             <button className="menuButton" onClick={handleExistingEmployee}>
               Manage Employees
-            </button>
-            <button className="menuButton" onClick={handleExistingClient}>
-              Manage Clients
             </button>
             <button className="menuButton" onClick={handleFinancialReport}>
               Financial Reports

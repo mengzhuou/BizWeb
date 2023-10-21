@@ -8,7 +8,7 @@ const Pagination = ({ userPerPage, totalUser, paginate, currentPage }) => {
   }
   console.log(currentPage)
   return (
-    <div className="flex rounded-md mt-3 justify-center items-center mb-4">
+    <div className="flex items-center justify-center mt-3 mb-4 rounded-md">
       <div className="join">
         {pageNumbers.map((number) => (
           <button
