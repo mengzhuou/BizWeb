@@ -102,8 +102,10 @@ function RegisterClient() {
 
   return (
     <>
-      <h1 className="text-xl font-bold">Register Client</h1>
-        <div>
+        <header className="fmy-2">
+          <h1 className="text-xl font-bold">Register Client</h1>
+        </header>
+        <div className="flex flex-col items-center justify-center p-2">
           <div>
             <label htmlFor="firstName">First Name: </label>
             <input
@@ -112,6 +114,7 @@ function RegisterClient() {
               onChange={(e) => handleInputChange(e)}
               id="firstName"
               placeholder="First name"
+              className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
           </div>
           <div>
@@ -122,9 +125,10 @@ function RegisterClient() {
               value={lastName}
               onChange={(e) => handleInputChange(e)}
               placeholder="Last name"
+              className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
           </div>
-          <div>
+          <div className="ml-9">
             <label htmlFor="email">Email: </label>
             <input
               type="email"
@@ -132,9 +136,10 @@ function RegisterClient() {
               value={email}
               onChange={(e) => handleInputChange(e)}
               placeholder="Email"
+              className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
           </div>
-          <div>
+          <div className="mr-20">
             <label htmlFor="birthday">Date Of Birth: </label>
             <input
               type="date"
@@ -144,9 +149,10 @@ function RegisterClient() {
               placeholder="MM/DD/YYYY"
               min="1900-01-01"
               max={new Date().toISOString().split("T")[0]}
+              className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
           </div>
-          <div>
+          <div className="mr-7">
             <label htmlFor="phoneNumber">Primary Phone Number: </label>
             <PhoneInput
               inputProps={{
@@ -159,15 +165,18 @@ function RegisterClient() {
               onChange={(value) => setPhoneNumber(value)}
               placeholder="9 (999) 999-9999"
               containerStyle={{
-                height: "50px",
+                height: "30px",
+                width:"fit-content",
+                display: "inline-block"
               }}
               inputStyle={{
-                height: "50px",
+                height: "30px",
+                width:"fit-content",
                 fontSize: "16px",
               }}
             />
           </div>
-          <div>
+          <div className="mt-3 mr-12">
             <label htmlFor="secondaryPhoneNumber">
               Secondary Phone Number:{" "}
             </label>
@@ -182,17 +191,20 @@ function RegisterClient() {
               onChange={(value) => setSecondaryPhoneNumber(value)}
               placeholder="9 (999) 999-9999"
               containerStyle={{
-                height: "50px",
+                height: "30px",
+                width:"fit-content",
+                display: "inline-block"
               }}
               inputStyle={{
-                height: "50px",
+                width:"fit-content",
+                height: "30px",
                 fontSize: "16px",
               }}
             />
           </div>
         </div>
-        <div>
-          <button onClick={() => handleSubmit()} type="submit" className="btn">
+        <div className="flex justify-center">
+          <button onClick={() => handleSubmit()} type="submit" className="mt-3 ml-72 btn">
             Register
           </button>
           <ToastContainer />
