@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import Table from "./Table";
-import Pagination from "./Pagination";
-import LookupClient from "./LookupClient";
+import Table from "./functions/Table";
+import Pagination from "./functions/Pagination";
+import LookupClient from "./functions/LookupClient";
 
 const ExistingClient = () => {
   const [clients, setClients] = useState([]);
