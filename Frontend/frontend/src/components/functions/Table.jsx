@@ -30,7 +30,7 @@ const Table = ({ clients, loading, err }) => {
   };
   return (
     <table className="table">
-      <thead className="text-white text-lg">
+      <thead className="text-lg text-white">
         <tr>
           <th>FirstName</th>
           <th>LastName</th>

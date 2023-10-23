@@ -27,6 +27,7 @@ const clientSchema = new mongoose.Schema(
       type: Number,
       default: null,
       unique: true,
+      optional: true,
     },
   },
   {

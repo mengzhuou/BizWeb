@@ -49,12 +49,9 @@ const deserialization = (data) => {
     secondaryPhoneNumber,
     email,
   } = data;
-  // Birthday
   const birthdayDate = new Date(birthday);
   const fBirthday = birthdayDate.toLocaleDateString();
-  // Primary Phone Number
   const fPrimary = formatPhoneNumber(phoneNumber);
-  // Secondary Phone Number
   let fSecondary = "None";
   if (secondaryPhoneNumber !== null) {
     fSecondary = formatPhoneNumber(secondaryPhoneNumber);
