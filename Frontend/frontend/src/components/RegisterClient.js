@@ -57,10 +57,13 @@ function RegisterClient() {
     } else if (!phoneNumber.trim()) {
       setPresenceError("Phone number cannot be blank.");
       return;
+    } else if (phoneNumber.length !== 10) {
+      setPresenceError("Phone number invalid");
+      return;
     } else {
       setPresenceError("");
     }
-    if (!secondaryPhoneNumber.trim()) {
+    if (!secondaryPhoneNumber.trim() || secondaryPhoneNumber.length !== 10) {
       setSecondaryPhoneNumber("");
     }
     const clientData = {
