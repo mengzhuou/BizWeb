@@ -58,7 +58,7 @@ function RegisterClient() {
       setPresenceError("Phone number cannot be blank.");
       return;
     } else if (phoneNumber.length !== 10) {
-      setPresenceError("Phone number invalid");
+      setPresenceError("Phone number is invalid");
       return;
     } else {
       setPresenceError("");
