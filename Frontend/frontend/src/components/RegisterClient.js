@@ -14,18 +14,15 @@ function RegisterClient() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const navigate = useNavigate();
-  const [presenceError, setPresenceError] = useState("");
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === "firstName") {
       setFirstName(value);
     }
-
     if (id === "lastName") {
       setLastName(value);
     }
-
     if (id === "email") {
       setEmail(value);
     }
@@ -43,26 +40,25 @@ function RegisterClient() {
   const handleSubmit = () => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     if (!firstName.trim()) {
-      setPresenceError("First name cannot be blank.");
+      toast.error("First name cannot be blank.");
       return;
     } else if (!lastName.trim()) {
-      setPresenceError("Last name cannot be blank.");
+      toast.error("Last name cannot be blank.");
       return;
     } else if (!emailPattern.test(email)) {
-      setPresenceError("Invalid email format");
+      toast.error("Invalid email format.");
       return;
     } else if (!birthday.trim()) {
-      setPresenceError("Birthday cannot be blank.");
+      toast.error("Birthday cannot be blank.");
       return;
     } else if (!phoneNumber.trim()) {
-      setPresenceError("Phone number cannot be blank.");
+      toast.error("Phone number cannot be blank.");
       return;
     } else if (phoneNumber.length !== 10) {
-      setPresenceError("Phone number is invalid");
+      toast.error("Phone number is invalid");
       return;
-    } else {
-      setPresenceError("");
     }
+
     if (!secondaryPhoneNumber.trim() || secondaryPhoneNumber.length !== 10) {
       setSecondaryPhoneNumber("");
     }
@@ -214,9 +210,6 @@ function RegisterClient() {
         </button>
         <ToastContainer />
       </div>
-      <p className="mt-5 flex justify-center" style={{ color: "red" }}>
-        {presenceError}
-      </p>{" "}
     </>
   );
 }
