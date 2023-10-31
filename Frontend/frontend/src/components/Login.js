@@ -73,9 +73,7 @@ const Login = () => {
                     onChange={handleUserInput}
                     autoComplete="off"
                     required
-                    placeholder="username
-                    "
-                    name="username" 
+                    placeholder="username"
                 />
                 <br/>
                 <label htmlFor="password">Password: </label>
@@ -87,7 +85,6 @@ const Login = () => {
                     value={password}
                     required
                     placeholder="********"
-                    name="password"
                     />
                 <br/>
                 <button className="menuButton">

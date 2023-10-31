@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import axios from "axios";
 import {
   Layout,
@@ -11,6 +11,7 @@ import {
   DisplayClient,
   ExistingClient,
 } from "./components";
+import PageNotFound from "./components/PageNotFound";
 
 import PersistLogin from "./components/PersistLogin";
 
@@ -30,8 +31,9 @@ function App() {
           <Route path="existingClient" element={<ExistingClient />} />
           <Route path="directProject" element={<DirectProject />} />
           <Route path="displayClient/:clientId" element={<DisplayClient />} />
-          </Route>
+        </Route>
       </Route>
+      <Route path="/*" element={<PageNotFound />} />
     </Routes>
   );
 }
