@@ -52,7 +52,7 @@
 body {
   font-family: "Nunito", sans-serif;
   min-height: 100vh;
-  /* background-color: var(--BGCOLOR); */
+  background-color: var(--BGCOLOR);
   color: var(--COLOR);
   background-size: cover;
   background-position: top right;
