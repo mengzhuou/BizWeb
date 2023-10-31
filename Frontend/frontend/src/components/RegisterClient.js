@@ -54,7 +54,7 @@ function RegisterClient() {
     } else if (!phoneNumber.trim()) {
       toast.error("Phone number cannot be blank.");
       return;
-    } else if (phoneNumber.length !== 10) {
+    } else if (phoneNumber.length !== 11) {
       toast.error("Phone number is invalid");
       return;
     }
