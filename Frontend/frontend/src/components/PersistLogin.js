@@ -59,7 +59,7 @@ const PersistLogin = () => {
         console.log('error')
         content = (
             <p className='errmsg'>
-                <img src="401.png" alt="401 Error" width="100%" height="100%" />
+                <img src="401.png" alt="401 Error" width="100%" height="100%" className="border-4 border-black"/>
             </p>
         )
     } else if (isSuccess && trueSuccess) { //persist: yes, token: yes

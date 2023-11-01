@@ -32,8 +32,8 @@ function App() {
           <Route path="directProject" element={<DirectProject />} />
           <Route path="displayClient/:clientId" element={<DisplayClient />} />
         </Route>
+        <Route path="/*" element={<PageNotFound />} />
       </Route>
-      <Route path="/*" element={<PageNotFound />} />
     </Routes>
   );
 }

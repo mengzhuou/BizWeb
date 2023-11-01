@@ -4,8 +4,8 @@ import "./Menu.css";
 const PageNotFound = () => {
   const content = (
     <>
-      <body>
-      <img src="404.png" alt="404 Error" width="100%" height="100%" />
+      <body className="bg-grey">
+      <img src="404.png" alt="404 Error" width="100%" height="100%" className="border-4 border-black"/>
       </body>
     </>
   );
