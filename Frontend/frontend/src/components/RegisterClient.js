@@ -56,10 +56,11 @@ function RegisterClient() {
       return;
     } else if (phoneNumber.length !== 11) {
       toast.error("Phone number is invalid");
+      setPhoneNumber("");
       return;
     }
 
-    if (!secondaryPhoneNumber.trim() || secondaryPhoneNumber.length !== 10) {
+    if (!secondaryPhoneNumber.trim() || secondaryPhoneNumber.length !== 11) {
       setSecondaryPhoneNumber("");
     }
     const clientData = {
