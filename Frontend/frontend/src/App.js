@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import axios from "axios";
 import {
   Layout,
@@ -11,6 +11,9 @@ import {
   DisplayClient,
   ExistingClient,
 } from "./components";
+import PageNotFound from "./components/PageNotFound";
+
+import PersistLogin from "./components/PersistLogin";
 
 axios.defaults.baseURL = 'http://localhost:3500';
 
@@ -19,13 +22,16 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Login />} />
-        <Route path="menu" element={<Menu />} />
-        <Route path="managementMenu" element={<ManagementMenu />} />
-        <Route path="registerEmployee" element={<RegisterEmployee />} />
-        <Route path="registerClient" element={<RegisterClient />} />
-        <Route path="existingClient" element={<ExistingClient />} />
-        <Route path="directProject" element={<DirectProject />} />
-        <Route path="displayClient/:clientId" element={<DisplayClient />} />
+        <Route element={<PersistLogin />}>
+          <Route path="menu" element={<Menu />} />
+          <Route path="managementMenu" element={<ManagementMenu />} />
+          <Route path="registerEmployee" element={<RegisterEmployee />} />
+          <Route path="registerClient" element={<RegisterClient />} />
+          <Route path="existingClient" element={<ExistingClient />} />
+          <Route path="directProject" element={<DirectProject />} />
+          <Route path="displayClient/:clientId" element={<DisplayClient />} />
+        </Route>
+        <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Routes>
   );
