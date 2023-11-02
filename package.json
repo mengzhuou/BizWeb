@@ -9,9 +9,11 @@
     "start:backend": "cd backend && npm start"
   },
   "dependencies": {
-    "concurrently": "^8.2.1"
+    "concurrently": "^8.2.1",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "daisyui": "^3.9.4"
   }
 }
