@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
-import "./Menu.css";
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     const userRef = useRef()
@@ -88,6 +88,9 @@ const Login = () => {
                 <br/>
                 <button className="pageButton">
                     Sign In
+                </button>
+                <button className="pageButton">
+                    <Link to="/forgetPassword">Forget Password</Link>
                 </button>
             </div>
         </form>

@@ -13,4 +13,6 @@ router.route('/')
 
 router.route('/:id').get(usersController.getUser)
 
+router.route('/resetPassword').patch(usersController.updateUserPassword)
+
 module.exports = router

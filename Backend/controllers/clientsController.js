@@ -12,7 +12,7 @@ const getClients = asyncHandler(async (req, res) => {
 // @route GET /client/:clientId
 // @access Private
 const getClient = asyncHandler(async (req, res) => {
-  const clientId = req.params.clientId;
+  const clientId = req.params.id;
   const clientFound = await Client.findById(clientId).lean().exec();
   if (!clientFound) {
     return res.status(404).json({ message: "Client not Found" });

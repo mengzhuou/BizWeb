@@ -14,6 +14,8 @@ import {
 import PageNotFound from "./components/PageNotFound";
 
 import PersistLogin from "./components/PersistLogin";
+import ForgetPassword from "./components/ForgetPassword";
+import ResetPassword from "./components/ResetPassword";
 
 axios.defaults.baseURL = 'http://localhost:3500';
 
@@ -29,6 +31,8 @@ function App() {
           <Route path="registerClient" element={<RegisterClient />} />
           <Route path="existingClient" element={<ExistingClient />} />
           <Route path="directProject" element={<DirectProject />} />
+          <Route path="forgetPassword" element={<ForgetPassword />} />
+          <Route path="resetPassword" element={<ResetPassword />} />
           <Route path="displayClient/:clientId" element={<DisplayClient />} />
         </Route>
         <Route path="/*" element={<PageNotFound />} />

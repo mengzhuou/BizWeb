@@ -125,10 +125,25 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.json(reply)
 })
 
+const updateUserPassword = asyncHandler(async (req, res) => {
+    const {username, password} = req.body
+    const user = await User.findOneAndUpdate({username: username}, {password: password}, null, function(err, docs) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(docs)
+        }
+    })
+    if (!user) {
+        return res.status(400).json({ message: 'User not found' })
+    }
+})
+
 module.exports = {
     getAllUsers,
     createNewUser,
     updateUser,
     deleteUser,
-    getUser
+    getUser,
+    updateUserPassword
 }

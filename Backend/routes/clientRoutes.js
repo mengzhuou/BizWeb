@@ -8,7 +8,9 @@ router
   .get(limiter, clientsController.getClients)
   .post(clientsController.createClient);
 
-router.route("/:clientId").get(clientsController.getClient);
-router.route("/:id").put(clientsController.deleteClient);
+router
+  .route("/:id")
+  .delete(clientsController.deleteClient)
+  .get(clientsController.getClient);
 
 module.exports = router;
