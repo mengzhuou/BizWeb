@@ -6,4 +6,4 @@ export { default as Menu } from "./Menu";
 export { default as ManagementMenu } from "./ManagementMenu";
 export { default as RegisterEmployee } from "./RegisterEmployee";
 export { default as RegisterClient } from "./RegisterClient";
-export { default as DisplayClient } from "./DisplayClient";
+export { default as DisplayClient } from "./ClientInfo";

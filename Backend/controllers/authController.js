@@ -83,7 +83,7 @@ const register = asyncHandler(async (req, res) => {
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: '30m' }
     )
 
     const refreshToken = jwt.sign(

@@ -1,6 +1,5 @@
 import {  useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import "./Menu.css";
 
 const DirectProject = () => {
   const getInitialState = () => {
@@ -22,14 +21,14 @@ const DirectProject = () => {
     <>
         <h1 className="text-xl font-bold">Direct Project</h1>
 
-        <div className="menuButtonContainer">
+        <div className="buttonContainer">
           <h1>Select a Project</h1>
-          <select className="menuButton" value={value} onChange={handleChange}>
+          <select className="pageButton" value={value} onChange={handleChange}>
             <option value="Project1">Project 1</option>
             <option value="Project2">Project 2</option>
             <option value="Project3">Project 3</option>
           </select>
-          <button className="menuButton" onClick={handleProject}>
+          <button className="pageButton" onClick={handleProject}>
             Submit
           </button>
         </div>

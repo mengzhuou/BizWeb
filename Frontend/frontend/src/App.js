@@ -15,7 +15,6 @@ import PageNotFound from "./components/PageNotFound";
 
 import PersistLogin from "./components/PersistLogin";
 
-
 axios.defaults.baseURL = 'http://localhost:3500';
 
 function App() {

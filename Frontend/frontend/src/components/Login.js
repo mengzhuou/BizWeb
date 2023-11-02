@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
@@ -62,7 +61,7 @@ const Login = () => {
         </header>
         <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
         <form className="login-form" onSubmit={handleSubmit}>
-            <div className="menuButtonContainer">
+            <div className="buttonContainer">
                 <label htmlFor="username">Username: </label>
                 <input 
                     className='form_input'
@@ -87,7 +86,7 @@ const Login = () => {
                     placeholder="********"
                     />
                 <br/>
-                <button className="menuButton">
+                <button className="pageButton">
                     Sign In
                 </button>
             </div>
