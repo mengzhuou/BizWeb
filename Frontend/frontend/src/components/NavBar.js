@@ -1,12 +1,11 @@
 import React from "react";
 import { useSendLogoutMutation } from './authApiSlice'
 import { useEffect } from 'react'
-import { useNavigate, Link, useLocation } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 
 const NavBar = () => {
 const navigate = useNavigate()
-const { pathname } = useLocation()
 
 const [sendLogout, {
     isLoading,
