@@ -6,6 +6,7 @@ const asyncHandler = require('express-async-handler')
 // @desc Login
 // @route POST /auth
 // @access Public
+
 const login = asyncHandler(async (req, res) => {
     const { username, password } = req.body
 
@@ -21,7 +22,7 @@ const login = asyncHandler(async (req, res) => {
 
     const match = await bcrypt.compare(password, foundUser.password)
 
-    if (!match) return res.status(401).json({ message: 'Unauthorized' })
+    if (!match) return res.status(401).json({ message: 'Unauthorized!' })
 
     const accessToken = jwt.sign(
         {
@@ -31,13 +32,13 @@ const login = asyncHandler(async (req, res) => {
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '15m' }
+        { expiresIn: '1h' }
     )
 
     const refreshToken = jwt.sign(
         { "username": foundUser.username },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: '7d' }
+        { expiresIn: '1d' }
     )
 
     // Create secure cookie with refresh token 
@@ -88,7 +89,7 @@ const register = asyncHandler(async (req, res) => {
     const refreshToken = jwt.sign(
         { "username": username },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: '7d' }
+        { expiresIn: '1h' }
     )
 
     // Create secure cookie with refresh token 
@@ -111,8 +112,8 @@ const register = asyncHandler(async (req, res) => {
 const refresh = (req, res) => {
     const cookies = req.cookies
 
-    if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
-
+    if (!cookies?.jwt) return res.status(401).json({ message: '401.png' })
+    
     const refreshToken = cookies.jwt
 
     jwt.verify(
@@ -123,7 +124,7 @@ const refresh = (req, res) => {
 
             const foundUser = await User.findOne({ username: decoded.username }).exec()
 
-            if (!foundUser) return res.status(401).json({ message: 'Unauthorized' })
+            if (!foundUser) return res.status(401).json({ message: 'Unauthorized!!!' })
 
             const accessToken = jwt.sign(
                 {
@@ -133,7 +134,7 @@ const refresh = (req, res) => {
                     }
                 },
                 process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '15m' }
+                { expiresIn: '1h' }
             )
 
             res.json({ accessToken })
