@@ -18,7 +18,7 @@ const ForgetPassword = () => {
     }
 
     if (OTPprompt.join("") === OTParr.join("")) {
-      sessionStorage.setItem("username", email);
+      sessionStorage.setItem("username", email.current.value);
       navigate("/resetPassword");
     } else {
       console.log("Wrong OTP" + OTParr.join("") + "---" + OTPprompt.join(""));
@@ -35,12 +35,17 @@ const ForgetPassword = () => {
     ];
     setOTPprompt(OTPdummy);
 
-    setOTPsent(true);
     console.log(OTPdummy);
     axios
-      .post("/forgetPassword", {
-        OTP: OTPdummy.join(""),
-        recipient_email: email.current.value,
+      .get(`/users/${email.current.value}`)
+      .then((res) => {
+        axios
+          .post("/forgetPassword", {
+            OTP: OTPdummy.join(""),
+            recipient_email: email.current.value,
+          })
+          .then((res) => setOTPsent(true))
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   };

@@ -19,8 +19,8 @@ const getAllUsers = asyncHandler(async (req, res) => {
 })
 
 const getUser = asyncHandler(async (req, res) => {
-    const id = req.params.id
-    const user = await User.findById(id).lean().exec()
+    const username = req.params.username
+    const user = await User.findOne({username: username}).lean().exec()
 
     if (!user) {
         return res.status(400).json({ message: 'No user found'})
@@ -127,16 +127,11 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 const updateUserPassword = asyncHandler(async (req, res) => {
     const {username, password} = req.body
-    const user = await User.findOneAndUpdate({username: username}, {password: password}, null, function(err, docs) {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log(docs)
-        }
-    })
+    const user = await User.findOneAndUpdate({username: username}, {password: password}).exec()
     if (!user) {
         return res.status(400).json({ message: 'User not found' })
     }
+    res.json({message: `${username} password is reset`})
 })
 
 module.exports = {

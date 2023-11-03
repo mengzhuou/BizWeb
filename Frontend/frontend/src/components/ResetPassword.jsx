@@ -3,16 +3,22 @@ import axios from "axios";
 
 const ResetPassword = () => {
   const [err, setErr] = useState(null);
-  const handleReset = async (e) => {
+
+  const handleReset = (e) => {
     e.preventDefault();
     if (e.target[0].value !== e.target[1].value) {
       setErr("Password Does Not Match");
       return;
     }
-    await axios.patch(`/users/resetPassword`, {
-      username: sessionStorage.getItem("username"),
-      password: e.target[0].value,
-    });
+
+    console.log(e.target[0].value);
+    axios
+      .patch(`/users/resetPassword`, {
+        username: sessionStorage.getItem("username"),
+        password: e.target[0].value,
+      })
+      .then((res) => console.log(res.status))
+      .catch((err) => setErr(err.message));
   };
   return (
     <div>
