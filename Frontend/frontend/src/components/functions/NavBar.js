@@ -1,10 +1,11 @@
 import React from "react";
 import { useSendLogoutMutation } from "../authApiSlice";
 import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [sendLogout, { isLoading, isSuccess, isError, error }] =
     useSendLogoutMutation();
@@ -17,6 +18,11 @@ const NavBar = () => {
 
   if (isError) return <p>Error: {error.data?.message}</p>;
 
+  const isLoginPage = location.pathname === "/";
+
+  if (isLoginPage) {
+    return null; // Render nothing if it's the login page
+  }
   const content = (
     <div>
       <Link className="float-right topNavBar" onClick={sendLogout}>
