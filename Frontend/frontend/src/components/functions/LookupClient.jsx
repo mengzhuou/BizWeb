@@ -52,7 +52,7 @@ const LookupClient = ({
           onChange={(inp) => setPhone(inp)}
           placeholder="9 (999) 999-9999"
           onKeyDown={(e) => {
-            if (e.key == "Enter") {
+            if (e.key === "Enter") {
               handleSearch(e);
             }
           }}

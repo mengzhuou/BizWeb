@@ -38,7 +38,31 @@ function RegisterClient() {
   };
 
   const handleSubmit = () => {
-    // Create an object to hold the client data
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+    if (!firstName.trim()) {
+      toast.error("First name cannot be blank.");
+      return;
+    } else if (!lastName.trim()) {
+      toast.error("Last name cannot be blank.");
+      return;
+    } else if (!emailPattern.test(email)) {
+      toast.error("Invalid email format.");
+      return;
+    } else if (!birthday.trim()) {
+      toast.error("Birthday cannot be blank.");
+      return;
+    } else if (!phoneNumber.trim()) {
+      toast.error("Phone number cannot be blank.");
+      return;
+    } else if (phoneNumber.length !== 11) {
+      toast.error("Phone number is invalid");
+      setPhoneNumber("");
+      return;
+    }
+
+    if (!secondaryPhoneNumber.trim() || secondaryPhoneNumber.length !== 11) {
+      setSecondaryPhoneNumber("");
+    }
     const clientData = {
       firstName,
       lastName,
@@ -78,108 +102,116 @@ function RegisterClient() {
 
   return (
     <>
-        <h1>Register Client</h1>
+      <header className="fmy-2">
+        <h1 className="text-xl font-bold">Register Client</h1>
+      </header>
+      <div className="flex flex-col items-center justify-center p-2">
         <div>
-          <div>
-            <div>
-              <label htmlFor="firstName">First Name: </label>
-              <input
-                type="text"
-                value={firstName}
-                onChange={(e) => handleInputChange(e)}
-                id="firstName"
-                placeholder="First name"
-              />
-            </div>
-            <div>
-              <label htmlFor="lastName">Last Name: </label>
-              <input
-                type="text"
-                id="lastName"
-                value={lastName}
-                onChange={(e) => handleInputChange(e)}
-                placeholder="Last name"
-              />
-            </div>
-            <div>
-              <label htmlFor="email">Email: </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => handleInputChange(e)}
-                placeholder="Email"
-              />
-            </div>
-            <div>
-              <label htmlFor="birthday">Date Of Birth: </label>
-              <input
-                type="date"
-                id="birthday"
-                value={birthday}
-                onChange={(e) => handleInputChange(e)}
-                placeholder="MM/DD/YYYY"
-                min="1900-01-01"
-                max={new Date().toISOString().split("T")[0]}
-              />
-            </div>
-            <div>
-              <label htmlFor="phoneNumber">Primary Phone Number: </label>
-              <PhoneInput
-                inputProps={{
-                  name: "phoneNumber",
-                  id: "phoneNumber",
-                }}
-                country={"us"}
-                onlyCountries={["us"]}
-                value={phoneNumber}
-                onChange={(value) => setPhoneNumber(value)}
-                placeholder="9 (999) 999-9999"
-                containerStyle={{
-                  height: "50px",
-                }}
-                inputStyle={{
-                  height: "50px",
-                  fontSize: "16px",
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor="secondaryPhoneNumber">
-                Secondary Phone Number:{" "}
-              </label>
-              <PhoneInput
-                inputProps={{
-                  name: "secondaryPhoneNumber",
-                  id: "secondaryPhoneNumber",
-                }}
-                country={"us"}
-                onlyCountries={["us"]}
-                value={secondaryPhoneNumber}
-                onChange={(value) => setSecondaryPhoneNumber(value)}
-                placeholder="9 (999) 999-9999"
-                containerStyle={{
-                  height: "50px",
-                }}
-                inputStyle={{
-                  height: "50px",
-                  fontSize: "16px",
-                }}
-              />
-            </div>
-          </div>
-          <div>
-            <button
-              onClick={() => handleSubmit()}
-              type="submit"
-              className="btn"
-            >
-              Register
-            </button>
-            <ToastContainer />
-          </div>
+          <label htmlFor="firstName">First Name: </label>
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => handleInputChange(e)}
+            id="firstName"
+            placeholder="First name"
+            className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
         </div>
-        </>
+        <div>
+          <label htmlFor="lastName">Last Name: </label>
+          <input
+            type="text"
+            id="lastName"
+            value={lastName}
+            onChange={(e) => handleInputChange(e)}
+            placeholder="Last name"
+            className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+        <div className="ml-9">
+          <label htmlFor="email">Email: </label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => handleInputChange(e)}
+            placeholder="Email"
+            className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+        <div className="mr-20">
+          <label htmlFor="birthday">Date Of Birth: </label>
+          <input
+            type="date"
+            id="birthday"
+            value={birthday}
+            onChange={(e) => handleInputChange(e)}
+            placeholder="MM/DD/YYYY"
+            min="1900-01-01"
+            max={new Date().toISOString().split("T")[0]}
+            className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+        <div className="mr-7">
+          <label htmlFor="phoneNumber">Primary Phone Number: </label>
+          <PhoneInput
+            inputProps={{
+              name: "phoneNumber",
+              id: "phoneNumber",
+            }}
+            country={"us"}
+            onlyCountries={["us"]}
+            value={phoneNumber}
+            onChange={(value) => setPhoneNumber(value)}
+            placeholder="9 (999) 999-9999"
+            containerStyle={{
+              height: "30px",
+              width: "fit-content",
+              display: "inline-block",
+            }}
+            inputStyle={{
+              height: "30px",
+              width: "fit-content",
+              fontSize: "16px",
+            }}
+          />
+        </div>
+        <div className="mt-3 mr-12">
+          <label htmlFor="secondaryPhoneNumber">Secondary Phone Number: </label>
+          <PhoneInput
+            inputProps={{
+              name: "secondaryPhoneNumber",
+              id: "secondaryPhoneNumber",
+            }}
+            country={"us"}
+            onlyCountries={["us"]}
+            value={secondaryPhoneNumber}
+            onChange={(value) => setSecondaryPhoneNumber(value)}
+            placeholder="9 (999) 999-9999"
+            containerStyle={{
+              height: "30px",
+              width: "fit-content",
+              display: "inline-block",
+            }}
+            inputStyle={{
+              width: "fit-content",
+              height: "30px",
+              fontSize: "16px",
+            }}
+          />
+        </div>
+      </div>
+      <div className="flex justify-center">
+        <button
+          onClick={() => handleSubmit()}
+          type="submit"
+          className="mt-3 ml-72 btn"
+        >
+          Register
+        </button>
+        <ToastContainer />
+      </div>
+    </>
   );
 }
 
