@@ -13,7 +13,6 @@ const login = asyncHandler(async (req, res) => {
     if (!username || !password) {
         return res.status(400).json({ message: 'All fields are required' })
     }
-
     const foundUser = await User.findOne({ username }).exec()
 
     if (!foundUser || !foundUser.active) {
@@ -120,7 +119,7 @@ const refresh = (req, res) => {
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
         asyncHandler(async (err, decoded) => {
-            if (err) return res.status(403).json({ message: 'Forbidden' })
+            if (err) return res.status(403).json({ message: 'Forbidden refresh' })
 
             const foundUser = await User.findOne({ username: decoded.username }).exec()
 
@@ -152,9 +151,40 @@ const logout = (req, res) => {
     res.json({ message: 'Cookie cleared' })
 }
 
+const oneTime = (req, res) => {
+    const { username, OTP } = req.body;
+
+    const singleUseToken = jwt.sign(
+        {
+            "ResetPassword": {
+                "username": username,
+                "roles": OTP
+            }
+        },
+        process.env.SINGLE_USE_TOKEN_SECRET,
+        { expiresIn: '1h' }
+    )
+    
+    res.cookie('singleUse', singleUseToken, {
+        httpOnly: true, //accessible only by web server 
+        secure: true, //https
+        sameSite: 'None', //cross-site cookie 
+        maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+    })
+
+    res.cookie('haha', 123, {
+        httpOnly: true, //accessible only by web server 
+        secure: true, //https
+        sameSite: 'None', //cross-site cookie 
+        maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+    })
+    console.log(res.getHeaders())
+    res.json({singleUseToken})
+}
 module.exports = {
     login,
     refresh,
     logout,
-    register
+    register,
+    oneTime
 }

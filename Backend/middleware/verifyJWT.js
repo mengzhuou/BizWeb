@@ -2,19 +2,14 @@ const jwt = require('jsonwebtoken')
 
 const verifyJWT = (requiredRole) => {
     return (req, res, next) => {
-      const authHeader = req.headers.authorization || req.headers.Authorization
 
-    if (!authHeader?.startsWith('Bearer ')) {
-        return res.status(401).json({ message: 'Unauthorized no token' })
-    }
-
-    const token = authHeader.split(' ')[1]
+    const token = req.cookies.jwt
 
     jwt.verify(
         token,
-        process.env.ACCESS_TOKEN_SECRET,
+        process.env.REFRESH_TOKEN_SECRET,
         (err, decoded) => {
-            if (err) return res.status(403).json({ message: 'Forbidden' })
+            if (err) return res.status(403).json({ message: 'Forbidden verifying' })
             else if (decoded.UserInfo.roles.includes(requiredRole)) {
               req.user = decoded.UserInfo.username
               req.roles = decoded.UserInfo.roles
@@ -26,7 +21,25 @@ const verifyJWT = (requiredRole) => {
     )
     }
 }
+const verifySingleUseJWT = (req, res) => {
+    console.log(req.cookies)
+    console.log(req.cookies.singleUse)
+    const token = req.cookies.singleUse
+    console.log('token' + token)
+    // console.log(req.cookies.singleUse)
+    jwt.verify(
+        token,
+        process.env.SINGLE_USE_TOKEN_SECRET,
+        (err, decoded) => {
+          if (err) return res.status(403).json({ message: 'Forbidden at Single Use' })
+   
+          return res.status(200).json({message: 'Token valid'})
+      }    
+    )
+}
+
 
 module.exports = {
-    verifyJWT
+    verifyJWT,
+    verifySingleUseJWT
 } 

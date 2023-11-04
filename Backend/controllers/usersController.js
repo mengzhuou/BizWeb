@@ -127,10 +127,17 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 const updateUserPassword = asyncHandler(async (req, res) => {
     const {username, password} = req.body
-    const user = await User.findOneAndUpdate({username: username}, {password: password}).exec()
+    console.log(username)
+    console.log(password)
+    const hashedPwd = await bcrypt.hash(password, 10)
+    console.log(hashedPwd)
+    const user = await User.findOneAndUpdate({username: username}, {password: hashedPwd}).exec()
     if (!user) {
         return res.status(400).json({ message: 'User not found' })
     }
+
+    res.clearCookie('singleUse', { httpOnly: true, sameSite: 'None', secure: true })
+
     res.json({message: `${username} password is reset`})
 })
 
