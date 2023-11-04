@@ -1,29 +1,23 @@
 import React from "react";
-import { useSendLogoutMutation } from './authApiSlice'
-import { useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-
+import { useSendLogoutMutation } from "../authApiSlice";
+import { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const NavBar = () => {
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
-const [sendLogout, {
-    isLoading,
-    isSuccess,
-    isError,
-    error
-}] = useSendLogoutMutation()
+  const [sendLogout, { isLoading, isSuccess, isError, error }] =
+    useSendLogoutMutation();
 
-useEffect(() => {
-  if (isSuccess) navigate('/')
-}, [isSuccess, navigate])
+  useEffect(() => {
+    if (isSuccess) navigate("/");
+  }, [isSuccess, navigate]);
 
-if (isLoading) return <p>Logging Out...</p>
+  if (isLoading) return <p>Logging Out...</p>;
 
-if (isError) return <p>Error: {error.data?.message}</p>
+  if (isError) return <p>Error: {error.data?.message}</p>;
 
-
-const content = (
+  const content = (
     <div>
       <Link className="float-right topNavBar" onClick={sendLogout}>
         Log Out
@@ -36,6 +30,6 @@ const content = (
       </Link>
     </div>
   );
-  return content
-}
-export default NavBar
+  return content;
+};
+export default NavBar;
