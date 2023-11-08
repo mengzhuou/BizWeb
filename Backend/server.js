@@ -30,6 +30,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/", require("./routes/root"));
+//app.use('/upload', require('./routes/fileRoutes'))
 app.use("/users", require("./routes/userRoutes"));
 app.use("/clients", require("./routes/clientRoutes"));
 app.use('/auth', require('./routes/authRoutes'))
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
   req.clientCache = redisClient;
   next();
 });
+
 
 // Start the server
 mongoose.connection.once("open", () => {

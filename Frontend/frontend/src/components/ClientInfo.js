@@ -28,6 +28,15 @@ const DisplayClient = () => {
       });
   }, [clientId]);
 
+  const [file, setFile] = useState()
+  const handleUpload = (e) => {
+    console.log(file)
+    console.log(file)
+    console.log(file)
+    console.log(file)
+
+  }
+
   return (
     <div>
       <div>First name: {firstName}</div>
@@ -36,9 +45,15 @@ const DisplayClient = () => {
       <div>Primary phone number: {phoneNumber}</div>
       <div>Secondary phone number: {secondaryPhoneNumber} </div>
       <div>Email: {email}</div>
+      <form id="uploadForm">
+        <input type="file" onChange={e => setFile(e.target.files[0])}/>
+        <button onClick={handleUpload}>Submit</button>
+      </form>
     </div>
   );
 };
+
+
 
 const deserialization = (data) => {
   let {
