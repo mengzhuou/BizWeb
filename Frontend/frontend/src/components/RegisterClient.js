@@ -160,7 +160,7 @@ function RegisterClient() {
             className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           />
         </div>
-        <div className="ml-9">
+        <div className="ml-5">
           <label htmlFor="address">Address: </label>
           <input
             type="address"
