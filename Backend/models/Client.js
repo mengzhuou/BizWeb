@@ -18,6 +18,10 @@ const clientSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    address: {
+      type: String,
+      required: true,
+    },
     phoneNumber: {
       type: Number,
       required: true,

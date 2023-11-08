@@ -94,11 +94,12 @@ const clientValidation = async (data) => {
     lastName,
     email,
     birthday,
+    address,
     phoneNumber,
     secondaryPhoneNumber,
   } = data;
 
-  if (!firstName || !lastName || !email || !birthday || !phoneNumber) {
+  if (!firstName || !lastName || !email || !address || !birthday || !phoneNumber) {
     return { isValid: false, status: 400, message: "All fields are required" };
   }
   // Validate email
