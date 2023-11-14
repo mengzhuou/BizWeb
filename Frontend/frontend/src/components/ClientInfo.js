@@ -11,6 +11,7 @@ const DisplayClient = () => {
   const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const { clientId } = useParams();
+  const [notEditMode, setNotEditMode] = useState(true);
 
   useEffect(() => {
     Axios.get(`http://localhost:3500/clients/${clientId}`)
@@ -31,15 +32,118 @@ const DisplayClient = () => {
       });
   }, [clientId]);
 
+  const handleButtonClick = () => {
+    setNotEditMode(false);
+  };
+
+  const handleConfirmClick = () => {
+    // Add your logic for the 'confirm' button click here
+    console.log("Confirm button clicked");
+    setNotEditMode(true);
+  };
+
+  const handleCancel = () => {
+    setNotEditMode(true);
+  };
+
   return (
     <div>
-      <div>First name: {firstName}</div>
-      <div>Last name: {lastName}</div>
-      <div>Birthday: {birthday}</div>
-      <div>Address: {address}</div>
-      <div>Primary phone number: {phoneNumber}</div>
-      <div>Secondary phone number: {secondaryPhoneNumber} </div>
-      <div>Email: {email}</div>
+      {notEditMode && <div>First name: {firstName}</div>}
+      {notEditMode && <div>Last name: {lastName}</div>}
+      {notEditMode && <div>Birthday: {birthday}</div>}
+      {notEditMode && <div>Address: {address}</div>}
+      {notEditMode && <div>Primary phone number: {phoneNumber}</div>}
+      {notEditMode && (
+        <div>Secondary phone number: {secondaryPhoneNumber} </div>
+      )}
+      {notEditMode && <div>Email: {email}</div>}
+      {notEditMode && <button onClick={handleButtonClick}>Edit</button>}
+
+      {!notEditMode && (
+        <div>
+          Firstname:
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </div>
+      )}
+      {!notEditMode && (
+        <div>
+          Last name:
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+      )}
+      {!notEditMode && (
+        <div>
+          Birthday:
+          <input
+            type="date"
+            id="birthday"
+            value={birthday}
+            onChange={(e) => setBirthday(e)}
+            placeholder="MM/DD/YYYY"
+            min="1900-01-01"
+            max={new Date().toISOString().split("T")[0]}
+            className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+      )}
+      {!notEditMode && (
+        <div>
+          Address:
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+      )}
+      {/* {!notEditMode && (
+        <div>
+          Primary phone number: PhoneInput inputProps=
+          {{
+            name: "phoneNumber",
+            id: "phoneNumber",
+          }}
+          country={"us"}
+          onlyCountries={["us"]}
+          value={phoneNumber}
+          onChange={(value) => setPhoneNumber(value)}
+          placeholder="9 (999) 999-9999" containerStyle=
+          {{
+            height: "30px",
+            width: "fit-content",
+            display: "inline-block",
+          }}
+          inputStyle=
+          {{
+            height: "30px",
+            width: "fit-content",
+            fontSize: "16px",
+          }}
+        </div>
+      )} */}
+      {/* {!notEditMode && (
+        <div>
+          Email:
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e)}
+            placeholder="Email"
+            className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+      )} */}
+      {!notEditMode && <button onClick={handleConfirmClick}>Confirm</button>}
+      {!notEditMode && <button onClick={handleCancel}>Cancel</button>}
     </div>
   );
 };
