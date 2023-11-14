@@ -1,4 +1,4 @@
-import { React, Button } from "react";
+import { React } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Table = ({ clients, loading, err }) => {
@@ -6,7 +6,7 @@ const Table = ({ clients, loading, err }) => {
   const navigate = useNavigate();
 
   const handleClient = (id) =>{
-    navigate("/displayClient/:" + id);
+    navigate("/displayClient/" + id);
   };
 
 
