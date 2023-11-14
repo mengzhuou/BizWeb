@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
+import PhoneInput from "react-phone-input-2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DisplayClient = () => {
   const [firstName, setFirstName] = useState("");
@@ -39,6 +42,69 @@ const DisplayClient = () => {
   const handleConfirmClick = () => {
     // Add your logic for the 'confirm' button click here
     console.log("Confirm button clicked");
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+    if (!firstName.trim()) {
+      toast.error("First name cannot be blank.");
+      return;
+    } else if (!lastName.trim()) {
+      toast.error("Last name cannot be blank.");
+      return;
+    } else if (!emailPattern.test(email)) {
+      toast.error("Invalid email format.");
+      return;
+    } else if (!birthday.trim()) {
+      toast.error("Birthday cannot be blank.");
+      return;
+    } else if (!address.trim()) {
+      toast.error("Address cannot be blank.");
+      return;
+    } else if (!phoneNumber.trim()) {
+      toast.error("Phone number cannot be blank.");
+      return;
+    } else if (phoneNumber.length !== 11) {
+      toast.error("Phone number is invalid");
+      setPhoneNumber("");
+      return;
+    }
+
+    if (!secondaryPhoneNumber.trim() || secondaryPhoneNumber.length !== 11) {
+      setSecondaryPhoneNumber("");
+    }
+    const clientData = {
+      firstName,
+      lastName,
+      email,
+      birthday,
+      address,
+      phoneNumber,
+      secondaryPhoneNumber,
+    };
+
+    Axios.patch("/clients", clientData)
+      .then((response) => {
+        toast.success("Successfully added to the database");
+        console.log("Successfully added to the database");
+        // const newClientId = response.data._id;
+      })
+      .catch((error) => {
+        let errorMessage = error.response.data.message;
+
+        if (error.response) {
+          switch (error.response.status) {
+            case 400:
+              errorMessage = error.response.data.message;
+              break;
+            case 409:
+              errorMessage = error.response.data.message;
+              break;
+            default:
+              errorMessage = "Unhandled error status: " + error.response.status;
+          }
+          toast.error(errorMessage);
+        } else {
+          toast.error("Network error or other issues");
+        }
+      });
     setNotEditMode(true);
   };
 
@@ -104,32 +170,59 @@ const DisplayClient = () => {
           />
         </div>
       )}
-      {/* {!notEditMode && (
+      {!notEditMode && (
         <div>
-          Primary phone number: PhoneInput inputProps=
-          {{
-            name: "phoneNumber",
-            id: "phoneNumber",
-          }}
-          country={"us"}
-          onlyCountries={["us"]}
-          value={phoneNumber}
-          onChange={(value) => setPhoneNumber(value)}
-          placeholder="9 (999) 999-9999" containerStyle=
-          {{
-            height: "30px",
-            width: "fit-content",
-            display: "inline-block",
-          }}
-          inputStyle=
-          {{
-            height: "30px",
-            width: "fit-content",
-            fontSize: "16px",
-          }}
+          Primary phone number:
+          <PhoneInput
+            inputProps={{
+              name: "phoneNumber",
+              id: "phoneNumber",
+            }}
+            country={"us"}
+            onlyCountries={["us"]}
+            value={phoneNumber}
+            onChange={(value) => setPhoneNumber(value)}
+            placeholder="9 (999) 999-9999"
+            containerStyle={{
+              height: "30px",
+              width: "fit-content",
+              display: "inline-block",
+            }}
+            inputStyle={{
+              height: "30px",
+              width: "fit-content",
+              fontSize: "16px",
+            }}
+          />
         </div>
-      )} */}
-      {/* {!notEditMode && (
+      )}
+      {!notEditMode && (
+        <div>
+          Secondary phone number:
+          <PhoneInput
+            inputProps={{
+              name: "secondaryPhoneNumber",
+              id: "secondaryPhoneNumber",
+            }}
+            country={"us"}
+            onlyCountries={["us"]}
+            value={secondaryPhoneNumber}
+            onChange={(value) => setSecondaryPhoneNumber(value)}
+            placeholder="9 (999) 999-9999"
+            containerStyle={{
+              height: "30px",
+              width: "fit-content",
+              display: "inline-block",
+            }}
+            inputStyle={{
+              height: "30px",
+              width: "fit-content",
+              fontSize: "16px",
+            }}
+          />
+        </div>
+      )}
+      {!notEditMode && (
         <div>
           Email:
           <input
@@ -141,7 +234,7 @@ const DisplayClient = () => {
             className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           />
         </div>
-      )} */}
+      )}
       {!notEditMode && <button onClick={handleConfirmClick}>Confirm</button>}
       {!notEditMode && <button onClick={handleCancel}>Cancel</button>}
     </div>
