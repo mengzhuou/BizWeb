@@ -20,12 +20,13 @@ const DisplayClient = () => {
         setFirstName(deserializer.firstName);
         setLastName(deserializer.lastName);
         setBirthday(deserializer.fBirthday);
-        setAddress(deserializer.address)
+        setAddress(deserializer.address);
         setPhoneNumber(deserializer.fPrimary);
         setEmail(deserializer.email);
         setSecondaryPhoneNumber(deserializer.fSecondary);
       })
       .catch((error) => {
+        console.log("SMTH WRONG");
         console.log(error);
       });
   }, [clientId]);
@@ -57,7 +58,7 @@ const deserialization = (data) => {
   const fBirthday = birthdayDate.toLocaleDateString();
   const fPrimary = formatPhoneNumber(phoneNumber);
   let fSecondary = "None";
-  if (secondaryPhoneNumber !== null) {
+  if (secondaryPhoneNumber !== undefined) {
     fSecondary = formatPhoneNumber(secondaryPhoneNumber);
   }
   const deserializedData = {
