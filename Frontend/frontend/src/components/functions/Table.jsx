@@ -1,6 +1,15 @@
-import React from "react";
+import { React, Button } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Table = ({ clients, loading, err }) => {
+
+  const navigate = useNavigate();
+
+  const handleClient = (id) =>{
+    navigate("/displayClient/:" + id);
+  };
+
+
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -42,13 +51,13 @@ const Table = ({ clients, loading, err }) => {
       <tbody className="text-lg">
         {clients.map(
           ({ _id, firstName, lastName, email, birthday, phoneNumber }) => (
-            <tr key={_id}>
-              <td>{firstName}</td>
-              <td>{lastName}</td>
-              <td>{email}</td>
-              <td>{formatBirthday(birthday)}</td>
-              <td>{formatPhoneNumber(phoneNumber)}</td>
-            </tr>
+              <tr key={_id}>
+                  <td><button onClick={() => { handleClient(_id) }}>{firstName}</button></td>
+                  <td><button onClick={() => { handleClient(_id) }}>{lastName}</button></td>
+                  <td><button onClick={() => { handleClient(_id) }}>{email}</button></td>
+                  <td><button onClick={() => { handleClient(_id) }}>{formatBirthday(birthday)}</button></td>
+                  <td><button onClick={() => { handleClient(_id) }}>{formatPhoneNumber(phoneNumber)}</button></td>
+              </tr>
           )
         )}
       </tbody>
