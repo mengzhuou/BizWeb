@@ -28,7 +28,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const { accessToken } = await login({ username, password }).unwrap()
-            dispatch(setCredentials({ accessToken }))
+            dispatch(setCredentials({ accessToken: accessToken, username: username }))
             setUsername('')
             setPassword('')
             navigate('/menu')

@@ -10,6 +10,7 @@ import {
   DirectProject,
   DisplayClient,
   ExistingClient,
+  ResetPassword,
 } from "./components";
 import PageNotFound from "./components/PageNotFound";
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="manageEmployee" element={<ExistingEmployee />} />
           <Route path="existingClient" element={<ExistingClient />} />
           <Route path="directProject" element={<DirectProject />} />
+          <Route path="manageEmployee/resetPassword" element={<ResetPassword />} />
           <Route path="displayClient/:clientId" element={<DisplayClient />} />
         </Route>
         <Route path="/*" element={<PageNotFound />} />

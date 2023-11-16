@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import EmployeeTable from "./functions/EmployeeTable";
 import Pagination from "./functions/Pagination";
-import LookupClient from "./functions/LookupClient";
 
 const ExistingEmployee = () => {
   const [clients, setClients] = useState([]);
@@ -10,11 +9,7 @@ const ExistingEmployee = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [clientPerPage] = useState(5);
-  const [isUserFound, setIsUserFound] = useState(true);
-  const [phone, setPhone] = useState("");
   const [err, setErr] = useState(null);
-  const nameSearch = useRef(null);
-  const birthdaySearch = useRef(null);
 
   const config = {
     withCredentials: true, // includes cookies
@@ -42,35 +37,6 @@ const ExistingEmployee = () => {
     indexOfLastClient
   );
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-
-    let clientsMatched = clients;
-    if (nameSearch.current.value) {
-      clientsMatched = clientsMatched.filter(
-        (client) =>
-          client.firstName + " " + client.lastName === nameSearch.current.value
-      );
-    }
-    if (birthdaySearch.current.value) {
-      clientsMatched = clientsMatched.filter(
-        (client) =>
-          client.birthday.slice(0, 10) === birthdaySearch.current.value
-      );
-    }
-    if (phone.length !== 0) {
-      clientsMatched = clientsMatched.filter(
-        (client) => client.phoneNumber === parseInt(phone)
-      );
-    }
-    if (clientsMatched.length === 0) {
-      setIsUserFound(false);
-    } else {
-      setIsUserFound(true);
-    }
-    setFilteredClients(clientsMatched);
-  };
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -81,17 +47,10 @@ const ExistingEmployee = () => {
         <h1 className="text-xl font-bold">Look Up Existing Employee</h1>
       </header>
       <div className="flex flex-col justify-center items-center p-2">
-        <LookupClient
-          nameSearch={nameSearch}
-          birthdaySearch={birthdaySearch}
-          handleSearch={handleSearch}
-          setPhone={setPhone}
-          phone={phone}
-        />
         <div className="my-10"></div>
 
-        {!isUserFound ? (
-          <h1 className="text-red-500 text-xl">User Not Found</h1>
+        {!clients ? (
+          <h1 className="text-red-500 text-xl">Users Not Found</h1>
         ) : (
           <>
             <EmployeeTable
