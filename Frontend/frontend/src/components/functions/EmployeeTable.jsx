@@ -48,7 +48,9 @@ const EmployeeTable = ({ clients, loading, err }) => {
             <td>
               <button
                 className="bg-blue-400 rounded-md p-2 font-bold"
-                onClick={() => navigate("resetPassword")}
+                onClick={() =>
+                  navigate("resetPassword", { state: { curUser: username } })
+                }
               >
                 Reset Password
               </button>
