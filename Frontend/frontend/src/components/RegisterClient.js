@@ -11,6 +11,7 @@ function RegisterClient() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const navigate = useNavigate();
@@ -28,6 +29,9 @@ function RegisterClient() {
     }
     if (id === "birthday") {
       setBirthday(value);
+    }
+    if (id === "address") {
+      setAddress(value);
     }
     if (id === "phoneNumber") {
       setPhoneNumber(value);
@@ -51,6 +55,9 @@ function RegisterClient() {
     } else if (!birthday.trim()) {
       toast.error("Birthday cannot be blank.");
       return;
+    } else if (!address.trim()){
+      toast.error("Address cannot be blank.");
+      return;
     } else if (!phoneNumber.trim()) {
       toast.error("Phone number cannot be blank.");
       return;
@@ -68,6 +75,7 @@ function RegisterClient() {
       lastName,
       email,
       birthday,
+      address,
       phoneNumber,
       secondaryPhoneNumber,
     };
@@ -149,6 +157,17 @@ function RegisterClient() {
             placeholder="MM/DD/YYYY"
             min="1900-01-01"
             max={new Date().toISOString().split("T")[0]}
+            className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+        <div className="ml-5">
+          <label htmlFor="address">Address: </label>
+          <input
+            type="address"
+            id="address"
+            value={address}
+            onChange={(e) => handleInputChange(e)}
+            placeholder="Address"
             className="className= mb-3 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           />
         </div>

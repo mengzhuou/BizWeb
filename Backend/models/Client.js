@@ -18,6 +18,10 @@ const clientSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    address: {
+      type: String,
+      required: true,
+    },
     phoneNumber: {
       type: Number,
       required: true,
@@ -25,14 +29,21 @@ const clientSchema = new mongoose.Schema(
     },
     secondaryPhoneNumber: {
       type: Number,
-      default: null,
-      unique: true,
-      optional: true,
+      sparse: true, // Allow null
     },
   },
   {
     timestamps: true,
   }
 );
-
+// Create a unique compound index for non-null and non-empty secondaryPhoneNumber
+clientSchema.index(
+  { secondaryPhoneNumber: 1 },
+  {
+    unique: true,
+    partialFilterExpression: {
+      secondaryPhoneNumber: { $type: "number" }, // Ensure it's a number
+    },
+  }
+);
 module.exports = mongoose.model("Client", clientSchema);
