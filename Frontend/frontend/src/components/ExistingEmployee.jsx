@@ -4,7 +4,6 @@ import EmployeeTable from "./functions/EmployeeTable";
 import Pagination from "./functions/Pagination";
 
 const ExistingEmployee = () => {
-  const [clients, setClients] = useState([]);
   const [filteredClients, setFilteredClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,7 +18,6 @@ const ExistingEmployee = () => {
     axios
       .get("/users", config)
       .then((res) => {
-        setClients(res.data);
         setFilteredClients(res.data);
         setLoading(false);
         setErr(null);
@@ -49,7 +47,7 @@ const ExistingEmployee = () => {
       <div className="flex flex-col justify-center items-center p-2">
         <div className="my-10"></div>
 
-        {!clients ? (
+        {!filteredClients ? (
           <h1 className="text-red-500 text-xl">Users Not Found</h1>
         ) : (
           <>
@@ -57,6 +55,8 @@ const ExistingEmployee = () => {
               clients={currentClients}
               loading={loading}
               err={err}
+              setErr={setErr}
+              setFilteredClients={setFilteredClients}
             />
             <Pagination
               currentPage={currentPage}

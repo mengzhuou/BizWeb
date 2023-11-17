@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const EmployeeTable = ({ clients, loading, err }) => {
-  const [isReset, setIsReset] = useState([]);
+const EmployeeTable = ({
+  clients,
+  loading,
+  err,
+  setErr,
+  setFilteredClients,
+}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     console.log(clients.length);
-    setIsReset(Array(clients.length).fill(false));
   }, [clients.length]);
   if (loading) {
     return <h2>Loading...</h2>;
@@ -24,7 +29,24 @@ const EmployeeTable = ({ clients, loading, err }) => {
     return "employee";
   };
 
-  const handleDeleteEmployee = () => {};
+  const handleDeleteEmployee = (employeeId, username) => {
+    axios("/users", {
+      method: "DELETE",
+      data: {
+        id: employeeId,
+      },
+      withCredentials: true,
+    })
+      .then((res) => {
+        console.log("hey");
+        setFilteredClients((currentEmployees) =>
+          currentEmployees.filter((emp) => emp.username !== username)
+        );
+      })
+      .catch((err) => {
+        setErr(err.response.data.message);
+      });
+  };
 
   return (
     <table className="table">
@@ -58,7 +80,7 @@ const EmployeeTable = ({ clients, loading, err }) => {
             <td>
               <button
                 className="bg-red-400 rounded-md p-2 font-bold"
-                onClick={() => handleDeleteEmployee(_id)}
+                onClick={() => handleDeleteEmployee(_id, username)}
               >
                 Delete
               </button>

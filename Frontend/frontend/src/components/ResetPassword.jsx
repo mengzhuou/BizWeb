@@ -46,10 +46,10 @@ const ResetPassword = () => {
     <div>
       <div className="flex justify-between">
         <div>
-          <h1>Reset Password</h1>
+          <h1 className="font-bold">Reset Password</h1>
           <form
             onSubmit={handleResetPassword}
-            className="grid grid-cols-2 gap-10 mt-10 pl-20 mr-3"
+            className="grid grid-cols-2 gap-10 mt-10 pl-5 mr-3"
           >
             <label htmlFor="">Old Password:</label>{" "}
             <div className="flex gap-3">
