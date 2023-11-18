@@ -1,4 +1,3 @@
-import "./Menu.css";
 
 
 const PageNotFound = () => {

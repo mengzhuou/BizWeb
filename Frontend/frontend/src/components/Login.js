@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
-import "./Menu.css";
 
 const Login = () => {
     const userRef = useRef()
@@ -28,8 +27,9 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { accessToken } = await login({ username, password }).unwrap()
-            dispatch(setCredentials({ accessToken }))
+            const { accessToken, roles } = await login({ username, password }).unwrap()
+            console.log(roles)
+            dispatch(setCredentials({ accessToken, username, roles }))
             setUsername('')
             setPassword('')
             navigate('/menu')
