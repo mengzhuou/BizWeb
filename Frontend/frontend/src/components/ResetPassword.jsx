@@ -13,6 +13,13 @@ const ResetPassword = () => {
 
   const handleResetPassword = (e) => {
     e.preventDefault();
+    if (!checkPasswordRequirement(refNewPass.current.value)) {
+      return;
+    }
+    if (refNewPass.current.value !== refConfirmNewPass.current.value) {
+      setErr("Passwords do not match");
+      return;
+    }
     axios("/users/resetPassword", {
       method: "PATCH",
       data: {
@@ -42,6 +49,23 @@ const ResetPassword = () => {
     );
   };
 
+  const checkPasswordRequirement = (pass) => {
+    if (pass.length < 8) {
+      setErr("Password length too short");
+    } else if (!/[0-9]/.test(pass)) {
+      setErr("At least one numeric digit");
+    } else if (!/[a-z]/.test(pass)) {
+      setErr("At least one lowercase letter");
+    } else if (!/[A-Z]/.test(pass)) {
+      setErr("At least one uppercase letter");
+    } else if (!/[^A-Za-z0-9]/.test(pass)) {
+      setErr("At least one special character");
+    } else {
+      return true;
+    }
+    return false;
+  };
+  
   return (
     <div>
       <div className="flex justify-between">
