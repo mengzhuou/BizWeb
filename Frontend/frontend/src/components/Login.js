@@ -45,16 +45,15 @@ const Login = () => {
           }
           errRef.current.focus();
       }
-    }
   };
 
   const handleUserInput = (e) => setUsername(e.target.value);
   const handlePwdInput = (e) => setPassword(e.target.value);
 
   const errClass = errMsg ? "errmsg" : "offscreen";
-
-  if (isLoading) return <p>Loading...</p>;
-
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   const content = (
     <section className="public">
       <header>
