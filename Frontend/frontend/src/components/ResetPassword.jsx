@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 const ResetPassword = () => {
@@ -7,8 +8,6 @@ const ResetPassword = () => {
   const refNewPass = useRef(null);
   const refConfirmNewPass = useRef(null);
   const location = useLocation();
-  const [err, setErr] = useState(null);
-  const [resetSuccess, setResetSuccess] = useState(null);
   const [passVisibility, setPassVisibility] = useState([false, false, false]);
 
   const handleResetPassword = (e) => {
@@ -17,8 +16,7 @@ const ResetPassword = () => {
       return;
     }
     if (refNewPass.current.value !== refConfirmNewPass.current.value) {
-      setResetSuccess(false);
-      setErr("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
     axios("/users/resetPassword", {
@@ -33,14 +31,12 @@ const ResetPassword = () => {
       .then((res) => {
         console.log("a");
         console.log(res);
-        setResetSuccess(true);
-        setErr(null);
+        toast.success("Your Password Has Been Updated Successfully");
       })
       .catch((err) => {
         console.log("b");
         console.log(err.response.data.message);
-        setResetSuccess(false);
-        setErr(err.response.data.message);
+        toast.error(err.response.data.message);
       });
   };
 
@@ -52,19 +48,18 @@ const ResetPassword = () => {
 
   const checkPasswordRequirement = (pass) => {
     if (pass.length < 8) {
-      setErr("Password length too short");
+      toast.error("Password length too short");
     } else if (!/[0-9]/.test(pass)) {
-      setErr("At least one numeric digit");
+      toast.error("At least one numeric digit");
     } else if (!/[a-z]/.test(pass)) {
-      setErr("At least one lowercase letter");
+      toast.error("At least one lowercase letter");
     } else if (!/[A-Z]/.test(pass)) {
-      setErr("At least one uppercase letter");
+      toast.error("At least one uppercase letter");
     } else if (!/[^A-Za-z0-9]/.test(pass)) {
-      setErr("At least one special character");
+      toast.error("At least one special character");
     } else {
       return true;
     }
-    setResetSuccess(false);
     return false;
   };
 
@@ -134,12 +129,7 @@ const ResetPassword = () => {
           <br />
         </div>
       </div>
-      {err && <p className="ml-80 mt-10 text-red-500 font-bold">{err}</p>}
-      {resetSuccess && (
-        <p className="ml-80 mt-10 text-green-500 font-bold">
-          Your Password Has Been Updated Successfully
-        </p>
-      )}
+      <ToastContainer />
     </div>
   );
 };
