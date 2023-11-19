@@ -7,3 +7,4 @@ export { default as ManagementMenu } from "./ManagementMenu";
 export { default as RegisterEmployee } from "./RegisterEmployee";
 export { default as RegisterClient } from "./RegisterClient";
 export { default as DisplayClient } from "./ClientInfo";
+export { default as ResetPassword } from "./ResetPassword";

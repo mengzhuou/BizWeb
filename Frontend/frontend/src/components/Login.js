@@ -24,35 +24,38 @@ const Login = () => {
     setErrMsg("");
   }, [username, password]);
 
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const { accessToken } = await login({ username, password }).unwrap();
-      dispatch(setCredentials({ accessToken }));
-      setUsername("");
-      setPassword("");
-      navigate("/menu");
-    } catch (err) {
-      if (!err.status) {
-        setErrMsg("No Server Response");
-      } else if (err.status === 400) {
-        setErrMsg("Missing Username or Password");
-      } else if (err.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg(err.data?.message);
+      e.preventDefault();
+      try {
+          const { accessToken, roles } = await login({ username, password }).unwrap()
+          const userRole = roles.includes("manager") ? "manager" : "employee"; 
+          console.log(userRole)
+          dispatch(setCredentials({ accessToken: accessToken, username: username, highestRole: userRole }))
+          setUsername('')
+          setPassword('')
+          navigate('/menu')
+      } catch (err) {
+          if (!err.status) {
+            setErrMsg('No Server Response');
+          } else if (err.status === 400) {
+            setErrMsg('Missing Username or Password');
+          } else if (err.status === 401) {
+              setErrMsg('Unauthorized');
+          } else {
+              setErrMsg(err.data?.message);
+          }
+          errRef.current.focus();
       }
-      errRef.current.focus();
-    }
   };
 
   const handleUserInput = (e) => setUsername(e.target.value);
   const handlePwdInput = (e) => setPassword(e.target.value);
 
   const errClass = errMsg ? "errmsg" : "offscreen";
-
-  if (isLoading) return <p>Loading...</p>;
-
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   const content = (
     <section className="public">
       <header>

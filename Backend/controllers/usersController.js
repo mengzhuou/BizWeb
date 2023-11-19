@@ -2,6 +2,7 @@ const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { match } = require('assert')
 
 // @desc Get all users
 // @route GET /users
@@ -33,10 +34,10 @@ const getUser = asyncHandler(async (req, res) => {
 // @route POST /users
 // @access Private
 const createNewUser = asyncHandler(async (req, res) => {
-    const { username, password, roles } = req.body
+    const { username, password, firstName, lastName, roles } = req.body
 
     // Confirm data
-    if (!username || !password || !Array.isArray(roles) || !roles.length) {
+    if (!username || !password || !Array.isArray(roles) || !firstName || !lastName || !roles.length ) {
         return res.status(400).json({ message: 'All fields are required' })
     }
 
@@ -50,7 +51,7 @@ const createNewUser = asyncHandler(async (req, res) => {
     // Hash password 
     const hashedPwd = await bcrypt.hash(password, 10) // salt rounds
 
-    const userObject = { username, "password": hashedPwd, roles }
+    const userObject = { username, "password": hashedPwd, firstName, lastName, roles}
 
     // Create and store new user 
     const user = await User.create(userObject)
@@ -125,10 +126,36 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.json(reply)
 })
 
+const updateUserPassword = asyncHandler(async (req, res) => {
+    const {username, oldPassword, newPassword} = req.body
+    console.log('oldPass:' ,oldPassword)
+    console.log('newPass:' ,newPassword)
+    console.log('username:' ,username)
+
+    const user = await User.findOne({username: username}).exec()
+    
+    if (!user) {
+        return res.status(400).json({ message: 'User not found' })
+    }
+
+    const matched = await bcrypt.compare(oldPassword, user.password)
+
+    if (!matched) {
+        return res.status(401).json({message: 'Wrong Old Password'})
+    }
+
+    const hashedNewPwd = await bcrypt.hash(newPassword, 10)
+    await User.findOneAndUpdate({username: username}, {password: hashedNewPwd}).exec()
+    
+
+    res.json({message: `${username} password is reset`})
+})
+
 module.exports = {
     getAllUsers,
     createNewUser,
     updateUser,
     deleteUser,
-    getUser
+    getUser,
+    updateUserPassword
 }
