@@ -28,8 +28,10 @@ const Login = () => {
   const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-          const { accessToken } = await login({ username, password }).unwrap()
-          dispatch(setCredentials({ accessToken: accessToken, username: username }))
+          const { accessToken, roles } = await login({ username, password }).unwrap()
+          const userRole = roles.includes("manager") ? "manager" : "employee"; 
+          console.log(userRole)
+          dispatch(setCredentials({ accessToken: accessToken, username: username, highestRole: userRole }))
           setUsername('')
           setPassword('')
           navigate('/menu')
