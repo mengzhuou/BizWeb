@@ -17,6 +17,7 @@ const ResetPassword = () => {
       return;
     }
     if (refNewPass.current.value !== refConfirmNewPass.current.value) {
+      setResetSuccess(false);
       setErr("Passwords do not match");
       return;
     }
@@ -63,9 +64,10 @@ const ResetPassword = () => {
     } else {
       return true;
     }
+    setResetSuccess(false);
     return false;
   };
-  
+
   return (
     <div>
       <div className="flex justify-between">
