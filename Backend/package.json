@@ -4,7 +4,8 @@
   "description": "Bizweb MERN Project",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server"
+    "preinstall": "npm i nodemon -g",
+    "start": "nodemon --legacy-watch server"
   },
   "keywords": [],
   "author": "",
@@ -23,9 +24,10 @@
     "mongoose": "^7.6.1",
     "mongoose-sequence": "^5.3.1",
     "react-router-dom": "^6.15.0",
-    "uuid": "^9.0.0"
+    "redis": "^4.6.12",
+    "uuid": "^9.0.0",
+    "nodemon": "^3.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
   }
 }
