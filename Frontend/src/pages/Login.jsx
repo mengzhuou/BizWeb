@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../components/authSlice";
-import { useLoginMutation } from "../components/authApiSlice";
+import { setCredentials } from "../redux/slices/authSlice";
+import { useLoginMutation } from "../redux/api/authApiSlice";
 
 const Login = () => {
   const userRef = useRef();

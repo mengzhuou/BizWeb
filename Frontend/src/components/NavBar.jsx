@@ -1,8 +1,8 @@
-import { useSendLogoutMutation } from "./authApiSlice";
+import { useSendLogoutMutation } from "../redux/api/authApiSlice";
 import { useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCurrentUserRole } from "./authSlice";
+import { selectCurrentUserRole } from "../redux/slices/authSlice";
 
 const NavBar = () => {
   const navigate = useNavigate();
