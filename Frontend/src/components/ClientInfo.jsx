@@ -20,7 +20,7 @@ const DisplayClient = () => {
         setFirstName(deserializer.firstName);
         setLastName(deserializer.lastName);
         setBirthday(deserializer.fBirthday);
-        setAddress(deserializer.address)
+        setAddress(deserializer.address);
         setPhoneNumber(deserializer.fPrimary);
         setEmail(deserializer.email);
         setSecondaryPhoneNumber(deserializer.fSecondary);

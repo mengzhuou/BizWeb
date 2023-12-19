@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import EmployeeTable from "./functions/EmployeeTable";
-import Pagination from "./functions/Pagination";
+import EmployeeTable from "../components/EmployeeTable";
+import Pagination from "../components/Pagination";
 
 const ExistingEmployee = () => {
   const [filteredClients, setFilteredClients] = useState([]);

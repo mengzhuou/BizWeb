@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "./authSlice";
-import { useLoginMutation } from "./authApiSlice";
+import { setCredentials } from "../components/authSlice";
+import { useLoginMutation } from "../components/authApiSlice";
 
 const Login = () => {
   const userRef = useRef();
@@ -24,29 +24,37 @@ const Login = () => {
     setErrMsg("");
   }, [username, password]);
 
-
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-          const { accessToken, roles } = await login({ username, password }).unwrap()
-          const userRole = roles.includes("manager") ? "manager" : "employee"; 
-          console.log(userRole)
-          dispatch(setCredentials({ accessToken: accessToken, username: username, highestRole: userRole }))
-          setUsername('')
-          setPassword('')
-          navigate('/menu')
-      } catch (err) {
-          if (!err.status) {
-            setErrMsg('No Server Response');
-          } else if (err.status === 400) {
-            setErrMsg('Missing Username or Password');
-          } else if (err.status === 401) {
-              setErrMsg('Unauthorized');
-          } else {
-              setErrMsg(err.data?.message);
-          }
-          errRef.current.focus();
+    e.preventDefault();
+    try {
+      const { accessToken, roles } = await login({
+        username,
+        password,
+      }).unwrap();
+      const userRole = roles.includes("manager") ? "manager" : "employee";
+      console.log(userRole);
+      dispatch(
+        setCredentials({
+          accessToken: accessToken,
+          username: username,
+          highestRole: userRole,
+        })
+      );
+      setUsername("");
+      setPassword("");
+      navigate("/menu");
+    } catch (err) {
+      if (!err.status) {
+        setErrMsg("No Server Response");
+      } else if (err.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg(err.data?.message);
       }
+      errRef.current.focus();
+    }
   };
 
   const handleUserInput = (e) => setUsername(e.target.value);
