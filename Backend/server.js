@@ -32,7 +32,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/root"));
 app.use("/users", require("./routes/userRoutes"));
 app.use("/clients", require("./routes/clientRoutes"));
-app.use('/auth', require('./routes/authRoutes'))
+app.use("/auth", require("./routes/authRoutes"));
 
 // 404 Not Found
 app.all("*", (req, res) => {
@@ -58,7 +58,7 @@ app.use((req, res, next) => {
 // Start the server
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 });
 
 mongoose.connection.on("error", (err) => {
