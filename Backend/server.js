@@ -35,6 +35,7 @@ app.use("/clients", require("./routes/clientRoutes"));
 app.use("/auth", require("./routes/authRoutes"));
 
 // 404 Not Found
+// Missing 404.html
 app.all("*", (req, res) => {
   res.status(404);
   if (req.accepts("html")) {

@@ -1,23 +1,26 @@
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import {
   Layout,
-  Menu,
-  Login,
-  ManagementMenu,
-  RegisterClient,
-  RegisterEmployee,
   DirectProject,
   DisplayClient,
-  ExistingClient,
   ResetPassword,
 } from "./components";
-import PageNotFound from "./components/PageNotFound";
+
+import {
+  RegisterClient,
+  RegisterEmployee,
+  ManagementMenu,
+  ExistingEmployee,
+  ExistingClient,
+  Login,
+  Menu,
+} from "./pages";
+import PageNotFound from "./pages/PageNotFound";
 
 import PersistLogin from "./components/PersistLogin";
-import ExistingEmployee from "./components/ExistingEmployee";
 
-axios.defaults.baseURL = 'http://localhost:3500';
+axios.defaults.baseURL = "http://localhost:3500";
 
 function App() {
   return (
@@ -32,7 +35,10 @@ function App() {
           <Route path="manageEmployee" element={<ExistingEmployee />} />
           <Route path="existingClient" element={<ExistingClient />} />
           <Route path="directProject" element={<DirectProject />} />
-          <Route path="manageEmployee/resetPassword" element={<ResetPassword />} />
+          <Route
+            path="manageEmployee/resetPassword"
+            element={<ResetPassword />}
+          />
           <Route path="displayClient/:clientId" element={<DisplayClient />} />
         </Route>
         <Route path="/*" element={<PageNotFound />} />

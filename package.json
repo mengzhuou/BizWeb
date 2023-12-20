@@ -3,9 +3,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "concurrently npm:postinstall:*",
     "postinstall:backend": "cd backend && npm install",
-    "postinstall:frontend": "cd frontend && cd frontend && npm install",
+    "postinstall:frontend": "cd frontend && npm install",
     "start": "concurrently npm:start:*",
-    "start:frontend": "cd frontend && cd frontend && npm start",
+    "start:frontend": "cd frontend && npm start",
     "start:backend": "cd backend && npm start"
   },
   "dependencies": {

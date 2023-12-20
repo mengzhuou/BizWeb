@@ -18,7 +18,6 @@ const Menu = () => {
     <>
       <h1 className="text-xl font-bold">Menu</h1>
       <div className="menuButtonContainer">
-        
         <button className="menuButton" onClick={handleRegisterClient}>
           Register a New Client
         </button>

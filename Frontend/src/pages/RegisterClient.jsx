@@ -55,7 +55,7 @@ function RegisterClient() {
     } else if (!birthday.trim()) {
       toast.error("Birthday cannot be blank.");
       return;
-    } else if (!address.trim()){
+    } else if (!address.trim()) {
       toast.error("Address cannot be blank.");
       return;
     } else if (!phoneNumber.trim()) {
