@@ -23,15 +23,15 @@ function RegisterEmployee() {
     }
   };
 
-  const handleSubmit = () => {
-    // Create an object to hold the client data
-    const clientData = {
-      empFirstName,
-      empLastName,
-      empUsername,
-      empPassword,
-    };
-  };
+  // const handleSubmit = () => {
+  //   // Create an object to hold the client data
+  //   const clientData = {
+  //     empFirstName,
+  //     empLastName,
+  //     empUsername,
+  //     empPassword,
+  //   };
+  // };
 
   return (
     <>
